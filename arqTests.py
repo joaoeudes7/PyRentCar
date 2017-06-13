@@ -1,5 +1,5 @@
 # import re
-
+# import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -38,11 +38,16 @@
 # User.puxarDados()
 # # print(User.dados_Users)
 #
-# cpf = "01805025490"
-# if User.val_cpf(cpf) == True:
-#     print("CPF Válido")
-# else:
-#     print("Inválido")
+
+# while True:
+#     cpf = input("CPF: ")
+#     if User.val_cpf(cpf) == True:
+#         print("CPF Válido")
+#         break
+#     else:
+#         print("Inválido! Digite novamente!")
+
+
 # #
 # # Veiculos.alugar()
 # cnh,rg = '',''
