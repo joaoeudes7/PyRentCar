@@ -60,7 +60,7 @@ def limparDados_User():
 def val_cpf(cpf):
     soma2, soma1 = 0, 0
     tam = 10
-    if 11 > len(cpf) < 11:
+    if len(cpf) != 11:
         return False
     else:
         for j in range(2):
