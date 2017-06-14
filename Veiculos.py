@@ -58,3 +58,15 @@ def pesquisar(termo):
     for i in dados_Veiculos:
         if termo.upper() in dados_Veiculos[i][0].upper():
             print(dados_Veiculos[i])
+
+
+#VALIDAÇÕES
+
+def validaRenavam(ano, renavam):
+    renavam = list(renavam)
+    renavam = len(renavam)
+
+    if ano < 2013 and renavam == 9 or ano >= 2013 and renavam == 11:
+        return True
+    else:
+        return False
