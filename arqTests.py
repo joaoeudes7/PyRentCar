@@ -68,3 +68,6 @@
 #print(User.valida_outros(cnh,10))
 #rg=input("RG: ")
 #print(User.valida_outros(rg,9))
+
+#cpf=input("cpf: ")
+#print(User.val_cpf(cpf))
