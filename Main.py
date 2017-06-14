@@ -30,7 +30,9 @@ while op != 10:
         # Nome_User = input("Nome: ")
         # Sobrenome_User = input("Sobrenome: ")
         # Data_Nasc = input("Data de Nascimento: ")
-        # CPF = input("CPF: ")
+        CPF = input("CPF: ")
+        while User.val_cpf(CPF) == False:
+            CPF = input("CPF Inválido!\nDigite outro CPF: ")
         # Nome_Mae = input("Nome da Mãe: ")
         RG = input("RG: ")
         while User.valida_outros(RG, 9) == False:

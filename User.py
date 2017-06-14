@@ -72,7 +72,7 @@ def val_cpf(cpf):
 	d1=11-(soma%11)
 	if d1 == 10 or d1 == 11: #Se a soma dos digitos der 10 ou 11 a funcao retornara um 0 ao d1
 		d1=0
-	#cpf.append(d1) #caso o usuario digite o CPF completo sem o decimo e decimo primeiro digito do cpf retire o # no inicio de cpf.append
+	cpf.append(d1) #caso o usuario digite o CPF completo sem o decimo e decimo primeiro digito do cpf retire o # no inicio de cpf.append
 
 	for a in range(len(mult2)):
 		soma2 += cpf[a] * mult2[a]
@@ -80,7 +80,7 @@ def val_cpf(cpf):
 	d2=11-(soma2%11)
 	if d2 == 10 or d2 == 11: #Se a soma dos digitos der 10 ou 11 a funcao retornara um 0 ao d2
 		d2=0
-	#cpf.append(d2) #caso o usuario digite o CPF completo sem o decimo e decimo primeiro digito do cpf retire o # no inicio de cpf.append
+	cpf.append(d2) #caso o usuario digite o CPF completo sem o decimo e decimo primeiro digito do cpf retire o # no inicio de cpf.append
 
 	if d1 == cpf[9] and d2 == cpf[10]:
 		return True
