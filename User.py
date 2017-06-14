@@ -22,16 +22,13 @@ class newUsuario(object):
             Arquivo.close()
 
 
-def valida_outros(variavel, qtd_letras, txt):
+def valida_outros(variavel, qtd_letras):
     import re
-    while True:
-        variavel = input(txt + ":")
-        variavel = re.sub("[a-z,A-Z]", "", variavel)
-        if len(variavel) == qtd_letras:
-            print(variavel)
-            break
-        else:
-            print(txt, "Inválido, digite novamente!")
+    variavel = re.sub("[a-z,A-Z]", "", variavel)
+    if len(variavel) == qtd_letras:
+        return True
+    else:
+        return False
 
 
 def puxarDados():

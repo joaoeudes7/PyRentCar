@@ -27,16 +27,20 @@ while op != 10:
     op = int(input("Digite uma opção do menu acima: "))
 
     if op == 1:
-        # Nome_User = input("Nome:")
-        # Sobrenome_User = input("Sobrenome:")
-        # Data_Nasc = input("Data de Nascimento:")
-        # CPF = input("CPF:")
-        # Nome_Mae = input("Nome da Mãe:")
-        User.valida_outros(rg, 9, "RG")
+        # Nome_User = input("Nome: ")
+        # Sobrenome_User = input("Sobrenome: ")
+        # Data_Nasc = input("Data de Nascimento: ")
+        # CPF = input("CPF: ")
+        # Nome_Mae = input("Nome da Mãe: ")
+        RG = input("RG: ")
+        while User.valida_outros(RG, 9) == False:
+            RG = input("RG Inválido!\nDigite outro RG: ")
         Email = input("Email:")
         while User.validaEmail(Email) == False:
-            Email = input("Email Inválido! Digite outro Email:")
-        User.valida_outros(cnh, 10, "CNH/Habilitação")
+            Email = input("Email Inválido!\nDigite outro Email:")
+        CNH = input("CNH: ")
+        while User.valida_outros(CNH, 10) == False:
+            CNH = input("CNH Inválida!\nDigite outra CNH: ")
 
     if op == 9:
         op = ""

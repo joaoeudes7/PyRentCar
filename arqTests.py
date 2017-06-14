@@ -63,5 +63,8 @@
 #             print(txt,"Inválido, digite novamente!")
 #
 #
-# User.valida_outros(cnh,10,"CNH")
-# User.valida_outros(rg,9,"RG")
+
+#cnh=input("cnh: ")
+#print(User.valida_outros(cnh,10))
+#rg=input("RG: ")
+#print(User.valida_outros(rg,9))
