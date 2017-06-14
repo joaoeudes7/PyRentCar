@@ -92,16 +92,6 @@ def validaEmail(email):
         return False
 
 
-def validaRenavam(ano, renavam):
-    renavam = list(renavam)
-    renavam = len(renavam)
-
-    if ano < 2013 and renavam == 9 or ano >= 2013 and renavam == 11:
-        return True
-    else:
-        return False
-
-
 def pesquisar(termo):
     puxarDados()
     for i in dados_Users:
