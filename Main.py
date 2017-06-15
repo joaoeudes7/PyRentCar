@@ -1,4 +1,4 @@
-#import
+# import
 import User
 
 ###############################
@@ -27,13 +27,17 @@ while op != 10:
     op = int(input("Digite uma opção do menu acima: "))
 
     if op == 1:
-        # Nome_User = input("Nome: ")
-        # Sobrenome_User = input("Sobrenome: ")
-        # Data_Nasc = input("Data de Nascimento: ")
+        Nome_User = input("Nome: ")
+        while User.validNomeSobrenome(Nome_User) == False:
+            Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
+        Sobrenome_User = input("Sobrenome: ")
+        while User.validNomeSobrenome(Nome_User) == False:
+            Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
+        Data_Nasc = input("Data de Nascimento: ")
         CPF = input("CPF: ")
         while User.val_cpf(CPF) == False:
             CPF = input("CPF Inválido!\nDigite outro CPF: ")
-        # Nome_Mae = input("Nome da Mãe: ")
+        Nome_Mae = input("Nome da Mãe: ")
         RG = input("RG: ")
         while User.valida_outros(RG, 9) == False:
             RG = input("RG Inválido!\nDigite outro RG: ")

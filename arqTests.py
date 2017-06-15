@@ -1,5 +1,5 @@
 # import re
-# import User
+import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -64,10 +64,13 @@
 #
 #
 
-#cnh=input("cnh: ")
-#print(User.valida_outros(cnh,10))
-#rg=input("RG: ")
-#print(User.valida_outros(rg,9))
+# cnh=input("cnh: ")
+# print(User.valida_outros(cnh,10))
+# rg=input("RG: ")
+# print(User.valida_outros(rg,9))
 
-#cpf=input("cpf: ")
-#print(User.val_cpf(cpf))
+# cpf=input("cpf: ")
+# print(User.val_cpf(cpf))
+
+Nome_User = input("Nome: ")
+User.validNomeSobrenome(Nome_User, "Nome")
