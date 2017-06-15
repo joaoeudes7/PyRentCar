@@ -32,8 +32,8 @@ while op != 10:
             Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
 
         Sobrenome_User = input("Sobrenome: ")
-        while User.validNomeSobrenome(Nome_User) == False:
-            Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
+        while User.validNomeSobrenome(Sobrenome_User) == False:
+            Sobrenome_User = input("Nome Inválido!\nDigite outro Nome: ")
 
         Data_Nasc = input("Data de Nascimento no formato (dd/mm/aa): ")
         while User.validData(Data_Nasc) == False:
@@ -44,7 +44,7 @@ while op != 10:
             CPF = input("CPF Inválido!\nDigite outro CPF: ")
 
         Nome_Mae = input("Nome da Mãe: ")
-        while User.validNomeSobrenome(Nome_User) == False:
+        while User.validNomeSobrenome(Nome_Mae) == False:
             Nome_Mae = input("Nome Inválido!\nDigite outro Nome: ")
 
         RG = input("RG: ")
