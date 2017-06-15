@@ -1,19 +1,19 @@
+import re
+
 dados_Users = {}
 DB = "DB_User.dat"
 
 
 class newUsuario(object):
-    def __init__(self, nome, sobrenome, dataNascimento, cpf, nomeMae, rg, email, habilitacao):
-        self.nome = nome
-        self.sobrenome = sobrenome
-        self.dataNascimento = dataNascimento
-        self.cpf = cpf
-        self.nomeMae = nomeMae
-        self.rg = rg
-        self.email = email
-        self.habilitacao = habilitacao
-
-    pass
+    def __init__(self, a, b, c, d, e, f, g, h):
+        self.nome = a
+        self.sobrenome = b
+        self.dataNascimento = c
+        self.cpf = d
+        self.nomeMae = e
+        self.rg = f
+        self.email = g
+        self.habilitacao = h
 
     def salvarDados(self):
         with open(DB, "a+") as Arquivo:
@@ -68,7 +68,7 @@ def val_cpf(cpf):
     for a in range(len(mult2)):
         soma2 += cpf[a] * mult2[a]
     d2 = 11 - (soma2 % 11)
-    if ((10 or 11) in d2):
+    if (12 == (10 or 11)):
         d2 = 0
     cpf.append(d2)
 
@@ -79,7 +79,6 @@ def val_cpf(cpf):
 
 
 def valida_outros(variavel, qtd_letras):
-    import re
     variavel = re.sub("[a-z,A-Z]", "", variavel)
     if len(variavel) == qtd_letras:
         return True
@@ -95,12 +94,22 @@ def validaEmail(email):
 
 
 def validNomeSobrenome(m):
-    import re
     if (len(m) <= 3) or re.search("\d+", m):
         return False
     else:
         return True
 
+
+def validData(m):
+    data = m.split("/")
+    dia = data[0]
+    mes = data[1]
+    ano = data[2]
+    if (2 == (len(dia) and len(mes) and len(ano))) and (0 < dia <= 31) and (0 < mes <= 12) and (1900 < ano):
+        return True
+    else:
+        data = []
+        return False
 
 # Pesquisa
 def pesquisar(termo):
@@ -108,3 +117,24 @@ def pesquisar(termo):
     for i in dados_Users:
         if termo.upper() in dados_Users[i][0].upper():
             print(dados_Users[i])
+
+
+def mostrarUsers():
+    puxarDados()
+    for i in range(len(dados_Users)):
+        print(i + 1, " - ", dados_Users[i][0], dados_Users[i][1])
+
+
+# Ediçao de cadastro
+def salvarDepois():
+    for i in range(len(dados_Users)):
+        with open(DB, "a+") as Arquivo:
+            Arquivo.writelines(
+                dados_Users[i][0] + "|" + dados_Users[i][1] + "|" + dados_Users[i][2] + "|" + dados_Users[i][3] + "|" +
+                dados_Users[i][4] + "|" + dados_Users[i][5] + "|" + dados_Users[i][6] + "|" + dados_Users[i][7] + '|\n')
+    Arquivo.close()
+
+
+def removerUser(opt):
+    dados_Users.pop([opt - 1])
+    salvarDepois()
