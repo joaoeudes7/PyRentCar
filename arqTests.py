@@ -100,8 +100,11 @@ import User
 # rg=input("RG: ")
 # print(User.valida_outros(rg,9))
 
-cpf = input("cpf: ")
-print(User.val_cpf(cpf))
+# cpf = input("cpf: ")
+# print(User.val_cpf(cpf))
 
 # Nome_User = input("Nome: ")
 # User.validNomeSobrenome(Nome_User, "Nome")
+
+dataN=input("Digite a data de nascimento: ")
+print(User.validData(dataN))

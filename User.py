@@ -105,7 +105,7 @@ def validData(m):
     dia = data[0]
     mes = data[1]
     ano = data[2]
-    if (2 == (len(dia) and len(mes) and len(ano))) and (0 < dia <= 31) and (0 < mes <= 12) and (1900 < ano):
+    if (2 == len(dia) and len(mes) and (4 == len(ano))) and (0 < int(dia) <= 31) and (0 < int(mes) <= 12) and (1900 < int(ano)):
         return True
     else:
         data = []

@@ -37,7 +37,7 @@ while op != 10:
 
         Data_Nasc = input("Data de Nascimento no formato (dd/mm/aa): ")
         while User.validData(Data_Nasc) == False:
-            CPF = input("Data ou Formato de data invalido!\nDigite Novamente no formato (dd/mm/aa): ")
+            Data_Nasc = input("Data ou Formato de data invalido!\nDigite Novamente no formato (dd/mm/aaaa): ")
 
         CPF = input("CPF: ")
         while User.val_cpf(CPF) == False:
