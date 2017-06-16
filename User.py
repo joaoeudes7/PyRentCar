@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 dados_Users = {}
 DB = "DB_User.dat"
@@ -99,16 +100,15 @@ def validNomeSobrenome(m):
     else:
         return True
 
-
 def validData(m):
-    data = m.split("/")
-    dia = data[0]
-    mes = data[1]
-    ano = data[2]
-    if (2 == len(dia) and len(mes) and (4 == len(ano))) and (0 < int(dia) <= 31) and (0 < int(mes) <= 12) and (1900 < int(ano)):
+    try:
+        data = m.split("/")
+        dia = data[0]
+        mes = data[1]
+        ano = data[2]
+        nas = datetime(int(ano), int(mes), int(dia))
         return True
-    else:
-        data = []
+    except:
         return False
 
 # Pesquisa
