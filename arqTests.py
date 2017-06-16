@@ -110,5 +110,9 @@ import User
 # dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
 # while User.validData(dataN) == False:
 #     dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
-
-User.sendEmail()
+#
+# placa = input("Placa: ")
+# Veiculos.validaPlaca(placa)
+email = input("email:   ")
+while User.validaEmail(email) == False:
+    email = input("email:   ")

@@ -88,7 +88,8 @@ def valida_outros(variavel, qtd_letras):
 
 
 def validaEmail(email):
-    if len(email) > 11 and (email.find("@") != -1) and (email.find(".") != -1):
+    check = re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email)
+    if check:
         return True
     else:
         return False
@@ -100,6 +101,7 @@ def validNomeSobrenome(m):
     else:
         return True
 
+
 def validData(m):
     try:
         data = m.split("/")
@@ -110,6 +112,7 @@ def validData(m):
         return True
     except:
         return False
+
 
 # Pesquisa
 def pesquisar(termo):
@@ -141,47 +144,29 @@ def removerUser(opt):
 
 
 def sendEmail():
-	import smtplib
-	 
-	# Credenciais
-	remetente    = "contato.pyrentacar@gmail.com"
-	senha        = "Pyrentacar2017"
-	 
-	# Destinatario e informações da mensagem
-	destinatario = "email@gmail.com"
-	assunto      = "Enviando email com python"
-	texto        = "Esse email foi enviado usando python! :)"
-	 
-	# Preparando a mensagem
-	msg = '\r\n'.join([
-	  'From: %s' % remetente,
-	  'To: %s' % destinatario,
-	  'Subject: %s' % assunto,
-	  '',
-	  '%s' % texto
-	  ])
-	 
-	# Enviando o email
-	if "@gmail.com" in destinatario:
-		server = smtplib.SMTP("smtp.gmail.com:587")
-		server.starttls()
-		server.login(remetente,senha)
-		server.sendmail(remetente, destinatario, msg)
-		server.quit()
-	#SMTP DO YAHOO E OUTLOOK/LIVE/HOTMAIL NÃO ESTA CONTRIBUINDO :(	
-	#elif "@yahoo.com" in destinatario:
-	#	server = smtplib.SMTP("smtp.mail.yahoo.com:25")
-	#	server.starttls()
-	#	server.login(remetente,senha)
-	#	server.sendmail(remetente, destinatario, msg)
-	#	server.quit()
-	#	
-	#elif "@hotmail.com" and "@outlook.com" in destinatario:
-	#	server = smtplib.SMTP("smtp-mail.outlook.com:587")
-	#	server.starttls()
-	#	server.login(remetente,senha)
-	#	server.sendmail(remetente, destinatario, msg)
-	#	server.quit()
+    import smtplib
 
-	else:
-		print("Servido de email não consta em nossos dados!")
+    # Informe suas credenciais abaixo.
+    remetente = "seuemailaqui@gmail.com"
+    senha = "suasenhaaqui"
+
+    # Destinatario e informações da mensagem.
+    destinatario = "email@destinatario.com"
+    assunto = "Enviando email com python"
+    texto = "Esse email foi enviado usando python! :)"
+
+    # Preparando a mensagem
+    msg = '\r\n'.join([
+        'From: %s' % remetente,
+        'To: %s' % destinatario,
+        'Subject: %s' % assunto,
+        '',
+        '%s' % texto
+    ])
+
+    # Enviando o email SMTP esta configurado para o remetete usar Gmail.
+    server = smtplib.SMTP("smtp.gmail.com:587")
+    server.starttls()
+    server.login(remetente, senha)
+    server.sendmail(remetente, destinatario, msg)
+    server.quit()

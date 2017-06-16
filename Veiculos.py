@@ -1,3 +1,5 @@
+import re
+
 dados_Veiculos = {}
 veiculos_alugados = {}
 DB_Veiculos = "DB_Veiculos.dat"
@@ -61,6 +63,13 @@ def pesquisar(termo):
 
 
 #VALIDAÇÕES
+def validaPlaca(m):
+    res = re.match("^\w{3}-\d{4}$", m)
+    if res:
+        return True
+    else:
+        return False
+
 
 def validaRenavam(ano, renavam):
     renavam = list(renavam)
