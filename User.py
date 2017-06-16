@@ -138,3 +138,25 @@ def salvarDepois():
 def removerUser(opt):
     dados_Users.pop([opt - 1])
     salvarDepois()
+
+
+def sendEmail():
+    import smtplib
+    from email.mime.text import MIMEText
+
+    conexao = smtplib.SMTP("smtp.gmail.com", 587)
+    conexao.starttls()
+
+    email_py = "contato.pyrentacar@gmail.com"
+    email_cli = "joaoeudes7@gmail.com"
+
+    conexao.login(email_py, "Pyrentacar2017")
+
+    mail = MIMEText("Conteudo")
+
+    mail["To"] = email_cli
+    mail["Subject"] = "Relatório do Alugeu do Automóvel"
+
+    conexao.sendmail(email_py, email_cli, mail.as_string())
+
+    conexao.close()

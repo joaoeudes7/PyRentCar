@@ -106,7 +106,9 @@ import User
 # Nome_User = input("Nome: ")
 # User.validNomeSobrenome(Nome_User, "Nome")
 
+#
+# dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
+# while User.validData(dataN) == False:
+#     dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
 
-dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
-while User.validData(dataN) == False:
-    dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
+User.sendEmail()
