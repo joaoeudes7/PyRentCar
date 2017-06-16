@@ -141,22 +141,47 @@ def removerUser(opt):
 
 
 def sendEmail():
-    import smtplib
-    from email.mime.text import MIMEText
+	import smtplib
+	 
+	# Credenciais
+	remetente    = "contato.pyrentacar@gmail.com"
+	senha        = "Pyrentacar2017"
+	 
+	# Destinatario e informações da mensagem
+	destinatario = "email@gmail.com"
+	assunto      = "Enviando email com python"
+	texto        = "Esse email foi enviado usando python! :)"
+	 
+	# Preparando a mensagem
+	msg = '\r\n'.join([
+	  'From: %s' % remetente,
+	  'To: %s' % destinatario,
+	  'Subject: %s' % assunto,
+	  '',
+	  '%s' % texto
+	  ])
+	 
+	# Enviando o email
+	if "@gmail.com" in destinatario:
+		server = smtplib.SMTP("smtp.gmail.com:587")
+		server.starttls()
+		server.login(remetente,senha)
+		server.sendmail(remetente, destinatario, msg)
+		server.quit()
+	#SMTP DO YAHOO E OUTLOOK/LIVE/HOTMAIL NÃO ESTA CONTRIBUINDO :(	
+	#elif "@yahoo.com" in destinatario:
+	#	server = smtplib.SMTP("smtp.mail.yahoo.com:25")
+	#	server.starttls()
+	#	server.login(remetente,senha)
+	#	server.sendmail(remetente, destinatario, msg)
+	#	server.quit()
+	#	
+	#elif "@hotmail.com" and "@outlook.com" in destinatario:
+	#	server = smtplib.SMTP("smtp-mail.outlook.com:587")
+	#	server.starttls()
+	#	server.login(remetente,senha)
+	#	server.sendmail(remetente, destinatario, msg)
+	#	server.quit()
 
-    conexao = smtplib.SMTP("smtp.gmail.com", 587)
-    conexao.starttls()
-
-    email_py = "contato.pyrentacar@gmail.com"
-    email_cli = "joaoeudes7@gmail.com"
-
-    conexao.login(email_py, "Pyrentacar2017")
-
-    mail = MIMEText("Conteudo")
-
-    mail["To"] = email_cli
-    mail["Subject"] = "Relatório do Alugeu do Automóvel"
-
-    conexao.sendmail(email_py, email_cli, mail.as_string())
-
-    conexao.close()
+	else:
+		print("Servido de email não consta em nossos dados!")
