@@ -10,56 +10,46 @@ def puxarDados():
     try:
         Arquivo = open(DB, 'r+')
         Linha = Arquivo.readline()
+        tam = len(dados_Users)
         while Linha:
-            valor = Linha.split("|")
-            dados_Users[len(dados_Users)] = valor[0], valor[1], valor[2], valor[3], valor[4], valor[5], valor[6], valor[
-                7]
+            read = Linha.split("|")
+            dados_Users[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7]
             Linha = Arquivo.readline()
         Arquivo.close()
     except:
         print("Não existe Dados")
 
 
-def limparDados_User():
-    puxarDados()
-    Arquivo = open(DB, 'w+')
-    Arquivo.writelines("")
-    Arquivo.close()
-
-
 class newUsuario(object):
-    puxarDados()
-
     def __init__(self, a, b, c, d, e, f, g, h):
         dados_Users[len(dados_Users)] = a, b, c, d, e, f, g, h
 
 
-def getName(i):
+def getNome(i):
     return dados_Users[i][0]
-
 
 def getSobrenome(i):
     return dados_Users[i][1]
-
 
 def getDataNasc(i):
     return dados_Users[i][2]
 
 
-def getNomeMae(i):
+def getCpf(i):
     return dados_Users[i][3]
 
-
-def getCpf(i):
+def getNomeMae(i):
     return dados_Users[i][4]
 
 
-def getEmail(i):
+def getRG(i):
     return dados_Users[i][5]
 
+def getEmail(i):
+    return dados_Users[i][6]
 
 def getCnh(i):
-    return dados_Users[i][6]
+    return dados_Users[i][7]
 
 
 # Validando
@@ -123,7 +113,7 @@ def validData(m):
 # Pesquisa
 def pesquisar(termo):
     for i in dados_Users:
-        if termo.upper() in getName(i).upper():
+        if termo.upper() in getNome(i).upper():
             print(dados_Users[i])
 
 
@@ -149,7 +139,6 @@ def editUser(m, n, v):
 def removerUser(opt):
     dados_Users.pop([opt - 1])
     salvarDados()
-
 
 def sendEmail():
     import smtplib
