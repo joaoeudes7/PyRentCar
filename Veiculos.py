@@ -28,9 +28,9 @@ def limparDados():
     Arquivo.close()
 
 
-def puxarDados(DB):
+def puxarDados():
     try:
-        Arquivo = open(DB, 'r+')
+        Arquivo = open(DB_Veiculos, 'r+')
         Linha = Arquivo.readline()
         while Linha:
             valores = Linha.split("|")
