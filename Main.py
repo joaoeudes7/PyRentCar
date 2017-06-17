@@ -1,6 +1,6 @@
 # import
 import User
-
+DB = "DB_User.dat"
 ###############################
 ## 		PY RENT A CAR 		##
 ## Create by:               ##
@@ -29,11 +29,11 @@ while op != 10:
 
         Nome_User = input("Nome: ")
         while User.validNomeSobrenome(Nome_User) == False:
-            Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
+            Nome_User = input("Nome Inválido!\nDigite outro nome: ")
 
         Sobrenome_User = input("Sobrenome: ")
         while User.validNomeSobrenome(Sobrenome_User) == False:
-            Sobrenome_User = input("Nome Inválido!\nDigite outro Nome: ")
+            Sobrenome_User = input("Nome Inválido!\nDigite outro nome: ")
 
         dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
         while User.validData(dataN) == False:
@@ -45,7 +45,7 @@ while op != 10:
 
         Nome_Mae = input("Nome da Mãe: ")
         while User.validNomeSobrenome(Nome_Mae) == False:
-            Nome_Mae = input("Nome Inválido!\nDigite outro Nome: ")
+            Nome_Mae = input("Nome Inválido!\nDigite outro nome: ")
 
         RG = input("RG: ")
         while User.valida_outros(RG, 9) == False:
@@ -53,7 +53,7 @@ while op != 10:
 
         Email = input("Email:")
         while User.validaEmail(Email) == False:
-            Email = input("Email Inválido!\nDigite outro Email:")
+            Email = input("Email Inválido!\nDigite outro email:")
 
         CNH = input("CNH: ")
         while User.valida_outros(CNH, 10) == False:
@@ -66,8 +66,57 @@ while op != 10:
             User.pesquisar(termo)
 
     elif op == 3:
-
-        User.mostrarUsers()
+        nome = input("Digite o nome da pessoa: ")
+        if nome in encontrou :
+            print("O que deseja alterar?")
+            print("1 - Nome")
+            print("2 - Sobrenome")
+            print("3 - Data de nascimento")
+            print("4 - CPF")
+            print("5 - Nome da mãe")
+            print("6 - RG")
+            print("7 - Email")
+            print("8 - Habilitação")
+            print("0 - Voltar")
+            op=int(input("Qual campo deseja alterar? "))
+            if op == 1:
+                Nome_User = input("Digite o novo nome: ")
+                while User.validNomeSobrenome(Nome_User) == False:
+                    Nome_User = input("Nome Inválido!\nDigite outro Nome: ")
+            elif op == 2:
+                Sobrenome_User = input("Digite o novo sobrenome: ")
+                while User.validNomeSobrenome(Sobrenome_User) == False:
+                    Sobrenome_User = input("Nome Inválido!\nDigite outro Nome: ")
+            elif op == 3:
+                dataN = input("Digite a nova data de nascimento (dd/mm/aaaa): ")
+                while User.validData(dataN) == False:
+                    dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
+            elif op == 4:
+                CPF = input("Digite o novo CPF: ")
+                while User.val_cpf(CPF) == False:
+                    CPF = input("CPF Inválido!\nDigite outro CPF: ")
+            elif op == 5:
+                Nome_Mae = input("Digite o novo nome da Mãe: ")
+                while User.validNomeSobrenome(Nome_Mae) == False:
+                    Nome_Mae = input("Nome Inválido!\nDigite outro nome: ")
+            elif op == 6:
+                RG = input("RG: ")
+                while User.valida_outros(RG, 9) == False:
+                    RG = input("RG Inválido!\nDigite outro RG: ")
+            elif op == 7:
+                Email = input("Email:")
+                while User.validaEmail(Email) == False:
+                    Email = input("Email Inválido!\nDigite outro email:")
+            elif op == 8:
+                CNH = input("CNH: ")
+                while User.valida_outros(CNH, 10) == False:
+                    CNH = input("CNH Inválida!\nDigite outra CNH: ")
+            elif op == 0:
+                break
+            else:
+                print("Opcao invalida!")
+        else:
+            print("Usuario nao existe!")
 
     elif op == 4:
 
