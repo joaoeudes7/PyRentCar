@@ -21,9 +21,9 @@ while op != 10:
 4 - Excluir cadastro de cliente
 \n/// MENU DE LOCAÇÃO
 5 - Alugar veículos
-6 - Consultar veículos disponíveis
-7 - Consultar registro de emprśtimos efetuados
-8 - Consultar tabela de preços
+6 - Devolução de veículos
+7 - Consultar veículos disponíveis
+8 - Consultar registro de emprśtimos efetuados
 \n/// MENU DE HISTÓRICOS
 9 - Consultar históricos da empresa
 \n0 - Sair\n\n''')
