@@ -5,24 +5,6 @@ dados_Users = {}
 DB = "DB_User.dat"
 
 
-class newUsuario(object):
-    def __init__(self, a, b, c, d, e, f, g, h):
-        self.nome = a
-        self.sobrenome = b
-        self.dataNascimento = c
-        self.cpf = d
-        self.nomeMae = e
-        self.rg = f
-        self.email = g
-        self.habilitacao = h
-
-    def salvarDados(self):
-        with open(DB, "a+") as Arquivo:
-            Arquivo.write(
-                self.nome + "|" + self.sobrenome + "|" + self.dataNascimento + "|" + self.cpf + "|" + self.nomeMae + "|" + self.rg + "|" + self.email + "|" + self.habilitacao + '|\n')
-            Arquivo.close()
-
-
 # Ações de dados
 def puxarDados():
     try:
@@ -43,6 +25,41 @@ def limparDados_User():
     Arquivo = open(DB, 'w+')
     Arquivo.writelines("")
     Arquivo.close()
+
+
+class newUsuario(object):
+    puxarDados()
+
+    def __init__(self, a, b, c, d, e, f, g, h):
+        dados_Users[len(dados_Users)] = a, b, c, d, e, f, g, h
+
+
+def getName(i):
+    return dados_Users[i][0]
+
+
+def getSobrenome(i):
+    return dados_Users[i][1]
+
+
+def getDataNasc(i):
+    return dados_Users[i][2]
+
+
+def getNomeMae(i):
+    return dados_Users[i][3]
+
+
+def getCpf(i):
+    return dados_Users[i][4]
+
+
+def getEmail(i):
+    return dados_Users[i][5]
+
+
+def getCnh(i):
+    return dados_Users[i][6]
 
 
 # Validando
@@ -82,11 +99,14 @@ def valida_outros(variavel, qtd_letras):
 
 
 def validaEmail(email):
-    return bool(re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email))
+    while bool(re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email)) is False:
+        email = input("Email Inválido!\nDigite outro email: ")
 
 
-def validNomeSobrenome(m):
-    return bool(re.match("[a-zA-Zãõçóúáé ]{2,}", m))
+def validNomeSobrenome(m, n):
+    while bool(re.match("[a-zA-Zãõçóúáé ]{2,}", m)) is False:
+        m = input(n + " Inválido!\nDigite outro " + n + ": ")
+
 
 def validData(m):
     try:
@@ -102,20 +122,18 @@ def validData(m):
 
 # Pesquisa
 def pesquisar(termo):
-    puxarDados()
     for i in dados_Users:
-        if termo.upper() in dados_Users[i][0].upper():
+        if termo.upper() in getName(i).upper():
             print(dados_Users[i])
 
 
 def mostrarUsers():
-    puxarDados()
     for i in range(len(dados_Users)):
         print(i + 1, " - ", dados_Users[i][0], dados_Users[i][1])
 
 
 # Ediçao de cadastro
-def salvarDepois():
+def salvarDados():
     for i in range(len(dados_Users)):
         with open(DB, "a+") as Arquivo:
             Arquivo.writelines(
@@ -124,9 +142,13 @@ def salvarDepois():
     Arquivo.close()
 
 
+def editUser(m, n, v):
+    dados_Users[m - 1][v - 1] = n
+    salvarDados()
+
 def removerUser(opt):
     dados_Users.pop([opt - 1])
-    salvarDepois()
+    salvarDados()
 
 
 def sendEmail():
