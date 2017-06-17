@@ -1,5 +1,4 @@
 # import re
-import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -113,6 +112,13 @@ import User
 #
 # placa = input("Placa: ")
 # Veiculos.validaPlaca(placa)
-email = input("email:   ")
-while User.validaEmail(email) == False:
-    email = input("email:   ")
+import re
+
+
+def validNomeSobrenome(m):
+    return bool(re.match("[a-zA-Zãõçóúáé ]{2,}", m))
+
+
+nome = input("Nome:   ")
+while validNomeSobrenome(nome) == False:
+    nome = input("Nome inválido! Digite um Nome válido: ")

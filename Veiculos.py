@@ -64,18 +64,10 @@ def pesquisar(termo):
 
 #VALIDAÇÕES
 def validaPlaca(m):
-    res = re.match("^\w{3}-\d{4}$", m)
-    if res:
-        return True
-    else:
-        return False
-
+    return bool(re.match("^\w{3}-\d{4}$", m))
 
 def validaRenavam(ano, renavam):
     renavam = list(renavam)
     renavam = len(renavam)
 
-    if ano < 2013 and renavam == 9 or ano >= 2013 and renavam == 11:
-        return True
-    else:
-        return False
+    return bool(ano < 2013 and renavam == 9 or ano >= 2013 and renavam == 11)

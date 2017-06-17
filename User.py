@@ -69,38 +69,24 @@ def val_cpf(cpf):
     for a in range(len(mult2)):
         soma2 += cpf[a] * mult2[a]
     d2 = 11 - (soma2 % 11)
-    if (12 == (10 or 11)):
+    if 12 == (10 or 11):
         d2 = 0
     cpf.append(d2)
 
-    if d1 == cpf[9] and d2 == cpf[10]:
-        return True
-    else:
-        return False
+    return bool(d1 == cpf[9] and d2 == cpf[10])
 
 
 def valida_outros(variavel, qtd_letras):
     variavel = re.sub("[a-z,A-Z]", "", variavel)
-    if len(variavel) == qtd_letras:
-        return True
-    else:
-        return False
+    return bool(len(variavel) == qtd_letras)
 
 
 def validaEmail(email):
-    check = re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email)
-    if check:
-        return True
-    else:
-        return False
+    return bool(re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email))
 
 
 def validNomeSobrenome(m):
-    if (len(m) <= 3) or re.search("\d+", m):
-        return False
-    else:
-        return True
-
+    return bool(re.match("[a-zA-Zãõçóúáé ]{2,}", m))
 
 def validData(m):
     try:
