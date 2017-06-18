@@ -28,29 +28,38 @@ class newUsuario(object):
 def getNome(i):
     return dados_Users[i][0]
 
+
 def getSobrenome(i):
     return dados_Users[i][1]
+
 
 def getDataNasc(i):
     return dados_Users[i][2]
 
+
 def getCpf(i):
     return dados_Users[i][3]
+
 
 def getNomeMae(i):
     return dados_Users[i][4]
 
+
 def getRG(i):
     return dados_Users[i][5]
+
 
 def getEmail(i):
     return dados_Users[i][6]
 
+
 def getCnh(i):
     return dados_Users[i][7]
 
+
 def getEndereco(i):
     return dados_Users[i][8]
+
 
 def getTelefone(i):
     return dados_Users[i][9]
@@ -101,6 +110,7 @@ def validaFone(m):
     while bool(re.match("^\([1-9]{2}\) [2-9]{2,3}[0-9]{2}\-[0-9]{4}$", m)) is False:
         m = input("Número errado!\nDigite outro número: ")
 
+
 def validaEmail(email):
     while bool(re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email)) is False:
         email = input("Email Inválido!\nDigite outro email: ")
@@ -140,8 +150,8 @@ def salvarDados():
     for i in range(len(dados_Users)):
         with open(DB, "a+") as Arquivo:
             Arquivo.writelines(
-                getNome(i) + "|" + getSobrenome(i) + "|" + getDataNasc(i) + "|" + getCpf(i) + "|" +
-                getNomeMae(i) + "|" + getRG(i) + "|" + getEmail(i) + "|" + getCnh(i) + "|" +
+                getNome(i) + "|" + getSobrenome(i) + "|" + getDataNasc(i) + "|" + getCpf(i) + "|" + getNomeMae(
+                    i) + "|" + getRG(i) + "|" + getEmail(i) + "|" + getCnh(i) + "|" +
                 getEndereco(i) + "|" + getTelefone(i) + '|\n')
     Arquivo.close()
 
@@ -150,9 +160,11 @@ def editUser(m, n, v):
     dados_Users[int(m) - 1][v - 1] = n
     salvarDados()
 
+
 def removerUser(opt):
     dados_Users.pop([opt - 1])
     salvarDados()
+
 
 def sendEmail():
     import smtplib
