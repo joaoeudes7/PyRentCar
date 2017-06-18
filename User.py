@@ -92,6 +92,15 @@ def valida_outros(variavel, qtd_letras):
     return bool(len(variavel) == qtd_letras)
 
 
+def validaEndereco(m):
+    while bool(re.match("^[A-Za-z0-9]{5,}", m)) is False:
+        m = input("Endereço Inválido!\nDigite um novo endereço: ")
+
+
+def validaFone(m):
+    while bool(re.match("^\([1-9]{2}\) [2-9]{2,3}[0-9]{2}\-[0-9]{4}$", m)) is False:
+        m = input("Número errado!\nDigite outro número: ")
+
 def validaEmail(email):
     while bool(re.match("[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}", email)) is False:
         email = input("Email Inválido!\nDigite outro email: ")
@@ -131,14 +140,14 @@ def salvarDados():
     for i in range(len(dados_Users)):
         with open(DB, "a+") as Arquivo:
             Arquivo.writelines(
-                dados_Users[i][0] + "|" + dados_Users[i][1] + "|" + dados_Users[i][2] + "|" + dados_Users[i][3] + "|" +
-                dados_Users[i][4] + "|" + dados_Users[i][5] + "|" + dados_Users[i][6] + "|" + dados_Users[i][7] + "|" +
-                dados_Users[i][8] + "|" + dados_Users[i][9] + '|\n')
+                getNome(i) + "|" + getSobrenome(i) + "|" + getDataNasc(i) + "|" + getCpf(i) + "|" +
+                getNomeMae(i) + "|" + getRG(i) + "|" + getEmail(i) + "|" + getCnh(i) + "|" +
+                getEndereco(i) + "|" + getTelefone(i) + '|\n')
     Arquivo.close()
 
 
 def editUser(m, n, v):
-    dados_Users[m - 1][v - 1] = n
+    dados_Users[int(m) - 1][v - 1] = n
     salvarDados()
 
 def removerUser(opt):
