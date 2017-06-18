@@ -13,7 +13,7 @@ def puxarDados():
         tam = len(dados_Users)
         while Linha:
             read = Linha.split("|")
-            dados_Users[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7]
+            dados_Users[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
             Linha = Arquivo.readline()
         Arquivo.close()
     except:
@@ -21,8 +21,8 @@ def puxarDados():
 
 
 class newUsuario(object):
-    def __init__(self, a, b, c, d, e, f, g, h):
-        dados_Users[len(dados_Users)] = a, b, c, d, e, f, g, h
+    def __init__(self, a, b, c, d, e, f, g, h, i, j):
+        dados_Users[len(dados_Users)] = a, b, c, d, e, f, g, h, i, j
 
 
 def getNome(i):
@@ -34,13 +34,11 @@ def getSobrenome(i):
 def getDataNasc(i):
     return dados_Users[i][2]
 
-
 def getCpf(i):
     return dados_Users[i][3]
 
 def getNomeMae(i):
     return dados_Users[i][4]
-
 
 def getRG(i):
     return dados_Users[i][5]
@@ -50,6 +48,12 @@ def getEmail(i):
 
 def getCnh(i):
     return dados_Users[i][7]
+
+def getEndereco(i):
+    return dados_Users[i][8]
+
+def getTelefone(i):
+    return dados_Users[i][9]
 
 
 # Validando
@@ -128,7 +132,8 @@ def salvarDados():
         with open(DB, "a+") as Arquivo:
             Arquivo.writelines(
                 dados_Users[i][0] + "|" + dados_Users[i][1] + "|" + dados_Users[i][2] + "|" + dados_Users[i][3] + "|" +
-                dados_Users[i][4] + "|" + dados_Users[i][5] + "|" + dados_Users[i][6] + "|" + dados_Users[i][7] + '|\n')
+                dados_Users[i][4] + "|" + dados_Users[i][5] + "|" + dados_Users[i][6] + "|" + dados_Users[i][7] + "|" +
+                dados_Users[i][8] + "|" + dados_Users[i][9] + '|\n')
     Arquivo.close()
 
 

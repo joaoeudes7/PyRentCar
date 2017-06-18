@@ -1,4 +1,5 @@
 # import re
+# import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -25,17 +26,18 @@
 # Nome_User = input("Nome:")
 # Sobrenome_User = input("Sobrenome:")
 # Data_Nasc = input("Data de Nascimento:")
-# CPF= input("CPF:")
+# CPF = input("CPF:")
 # Nome_Mae = input("Nome da Mãe:")
-# Rg = input("RG:")
+# RG = input("RG:")
 # Email = input("Email:")
-# Habilitação = input("Habilitação:")
+# CNH = input("Habilitação:")
+# Endereco = input("Endereco:")
+# Telefone = input("Telefone:")
 #
-#
-# Usuario = User.newUsuario(Nome_User,Sobrenome_User,Data_Nasc,CPF,Nome_Mae,Rg,Email,Habilitação)
-# Usuario.salvarDados()
+# User.newUsuario(Nome_User, Sobrenome_User, Data_Nasc, CPF, Nome_Mae, RG, Email, CNH, Endereco, Telefone)
+# ser.salvarDados()
 # User.puxarDados()
-# # print(User.dados_Users)
+# print(User.dados_Users)
 #
 
 # while True:

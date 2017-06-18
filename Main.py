@@ -59,7 +59,14 @@ while op != 10:
         while User.valida_outros(CNH, 10) == False:
             CNH = input("CNH Inválida!\nDigite outra CNH: ")
 
-        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH)
+        Endereco = input("Endereço: ")
+        User.validNomeSobrenome(Endereco, "Endereco")
+
+        Fone = input("Telefone (xx)xxxxx-xxxx: ")
+        while User.valida_outros(Fone, 14) == False:
+            Fone = input("Telefone Inválido!\nDigite outro número no formato (xx)xxxxx-xxxx: ")
+
+        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone)
 
     elif op == 2:
 
