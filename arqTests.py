@@ -125,5 +125,5 @@ import User
 # while validNomeSobrenome(nome) == False:
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 
-Numero = input("Telefone: ")
-User.validaFone(Numero)
+Endereço = input("Endereço: ")
+User.validaEndereco(Endereço)

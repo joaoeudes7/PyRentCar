@@ -38,25 +38,25 @@ while op != 10:
         User.validNomeSobrenome(Sobrenome_User, "Sobrenome")
 
         dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
-        while User.validData(dataN) == False:
+        while User.validData(dataN) is False:
             dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
 
         CPF = input("CPF: ")
-        while User.val_cpf(CPF) == False:
+        while User.val_cpf(CPF) is False:
             CPF = input("CPF Inválido!\nDigite outro CPF: ")
 
         Nome_Mae = input("Nome da Mãe: ")
         User.validNomeSobrenome(Nome_Mae, "Nome")
 
         RG = input("RG: ")
-        while User.valida_outros(RG, 9) == False:
+        while User.valida_outros(RG, 9) is False:
             RG = input("RG Inválido!\nDigite outro RG: ")
 
         Email = input("Email:")
         User.validaEmail(Email)
 
         CNH = input("CNH: ")
-        while User.valida_outros(CNH, 10) == False:
+        while User.valida_outros(CNH, 10) is False:
             CNH = input("CNH Inválida!\nDigite outra CNH: ")
 
         Endereco = input("Endereço: ")
@@ -97,15 +97,15 @@ while op != 10:
         elif op == 2:
             Sobrenome_User = input("Digite o novo sobrenome: ")
             User.validNomeSobrenome(Sobrenome_User, "Sobrenome")
-            User.editUser(editar, Nome_User, op)
+            User.editUser(editar, Sobrenome_User, op)
         elif op == 3:
             dataN = input("Digite a nova data de nascimento (dd/mm/aaaa): ")
-            while User.validData(dataN) == False:
+            while User.validData(dataN) is False:
                 dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
             User.editUser(editar, dataN, op)
         elif op == 4:
             CPF = input("Digite o novo CPF: ")
-            while User.val_cpf(CPF) == False:
+            while User.val_cpf(CPF) is False:
                 CPF = input("CPF Inválido!\nDigite outro CPF: ")
             User.editUser(editar, CPF, op)
         elif op == 5:
@@ -114,7 +114,7 @@ while op != 10:
             User.editUser(editar, Nome_Mae, op)
         elif op == 6:
             RG = input("RG: ")
-            while User.valida_outros(RG, 9) == False:
+            while User.valida_outros(RG, 9) is False:
                 RG = input("RG Inválido!\nDigite outro RG: ")
             User.editUser(editar, RG, op)
         elif op == 7:
@@ -123,7 +123,7 @@ while op != 10:
             User.editUser(editar, Email, op)
         elif op == 8:
             CNH = input("CNH: ")
-            while User.valida_outros(CNH, 10) == False:
+            while User.valida_outros(CNH, 10) is False:
                 CNH = input("CNH Inválida!\nDigite outra CNH: ")
             User.editUser(editar, CNH, op)
         elif op == 0:
