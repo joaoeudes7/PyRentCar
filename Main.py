@@ -42,8 +42,7 @@ while op != 10:
             dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
 
         CPF = input("CPF: ")
-        while User.val_cpf(CPF) is False:
-            CPF = input("CPF Inválido!\nDigite outro CPF: ")
+        User.val_cpf(CPF)
 
         Nome_Mae = input("Nome da Mãe: ")
         User.validNomeSobrenome(Nome_Mae, "Nome")
@@ -66,7 +65,7 @@ while op != 10:
         User.validaFone(Fone)
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone)
-
+        User.salvarDados()
     elif op == 2:
 
         while True:

@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 
-dados_Users = {}
+dateUser = {}
 DB = 'DB_User.dat'
 
 
@@ -10,60 +10,55 @@ def puxarDados():
     try:
         Arquivo = open(DB, 'r+')
         Linha = Arquivo.readline()
-        tam = len(dados_Users)
+        tam = len(dateUser)
         while Linha:
             read = Linha.split('|')
-            dados_Users[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
+            dateUser[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
             Linha = Arquivo.readline()
         Arquivo.close()
     except:
         print('Não existe Dados')
 
 
-class newUsuario(object):
-    def __init__(self, a, b, c, d, e, f, g, h, i, j):
-        dados_Users[len(dados_Users)] = a, b, c, d, e, f, g, h, i, j
-
-
-def getNome(i):
-    return dados_Users[i][0]
-
-
-def getSobrenome(i):
-    return dados_Users[i][1]
-
-
-def getDataNasc(i):
-    return dados_Users[i][2]
-
-
-def getCpf(i):
-    return dados_Users[i][3]
-
-
-def getNomeMae(i):
-    return dados_Users[i][4]
-
-
-def getRG(i):
-    return dados_Users[i][5]
-
-
-def getEmail(i):
-    return dados_Users[i][6]
-
-
-def getCnh(i):
-    return dados_Users[i][7]
-
-
-def getEndereco(i):
-    return dados_Users[i][8]
-
-
-def getTelefone(i):
-    return dados_Users[i][9]
-
+# def getNome(i):
+#     return dateUser[i][0]
+#
+#
+# def getSobrenome(i):
+#     return dateUser[i][1]
+#
+#
+# def getData(i):
+#     return dateUser[i][2]
+#
+#
+# def getCpf(i):
+#     return dateUser[i][3]
+#
+#
+# def getNomeMae(i):
+#     return dateUser[i][4]
+#
+#
+# def getRG(i):
+#     return dateUser[i][5]
+#
+#
+# def getEmail(i):
+#     return dateUser[i][6]
+#
+#
+# def getCnh(i):
+#     return dateUser[i][7]
+#
+#
+# def getEndereco(i):
+#     return dateUser[i][8]
+#
+#
+# def getTelefone(i):
+#     return dateUser[i][9]
+#
 
 # Validando
 def val_cpf(cpf):
@@ -80,7 +75,6 @@ def val_cpf(cpf):
 
     for a in range(len(mult)):
         soma += cpf[a] * mult[a]
-
     d1 = 11 - (soma % 11)
     if d1 == 10 or d1 == 11:
         d1 = 0
@@ -89,11 +83,11 @@ def val_cpf(cpf):
     for a in range(len(mult2)):
         soma2 += cpf[a] * mult2[a]
     d2 = 11 - (soma2 % 11)
-    if 12 == (10 or 11):
+    if d2 == 10 or d2 == 11:
         d2 = 0
     cpf.append(d2)
-
-    return bool(d1 == cpf[9] and d2 == cpf[10])
+    while bool(d1 == cpf[9] and d2 == cpf[10]) is False:
+        cpf = input("CPF Inválido!\nDigite outro CPF: ")
 
 
 def valida_outros(variavel, qtd_letras):
@@ -135,34 +129,38 @@ def validData(m):
 
 # Pesquisa
 def pesquisar(termo):
-    for i in dados_Users:
-        if termo.upper() in getNome(i).upper():
-            print(dados_Users[i])
+    for i in dateUser:
+        if termo.upper() in dateUser[i][0].upper():
+            print(dateUser[i])
 
 
 def mostrarUsers():
-    for i in range(len(dados_Users)):
-        print(i + 1, ' - ', dados_Users[i][0], dados_Users[i][1])
+    for i in range(len(dateUser)):
+        print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
 
 
 # Ediçao de cadastro
 def salvarDados():
-    for i in range(len(dados_Users)):
-        with open(DB, 'a+') as Arquivo:
-            Arquivo.writelines(
-                getNome(i) + '|' + getSobrenome(i) + '|' + getDataNasc(i) + '|' + getCpf(i) + '|' + getNomeMae(
-                    i) + '|' +
-                getRG(i) + '|' + getEmail(i) + '|' + getCnh(i) + '|' + getEndereco(i) + '|' + getTelefone(i) + '|\n')
+    conteudo = ''
+    Arquivo = open(DB, 'a+')
+    print("passei aqui 1")
+    for i in range(len(dateUser)):
+        print("passei aqui 2")
+        conteudo = dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
+                   dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
+                   dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
+    Arquivo.writelines(conteudo)
+    print("passei aqui 3")
     Arquivo.close()
 
 
 def editUser(m, n, v):
-    dados_Users[int(m) - 1][v - 1] = n
+    dateUser[int(m) - 1][v - 1] = n
     salvarDados()
 
 
 def removerUser(opt):
-    dados_Users.pop([opt - 1])
+    dateUser.pop([opt - 1])
     salvarDados()
 
 
@@ -193,3 +191,8 @@ def sendEmail():
     server.login(remetente, senha)
     server.sendmail(remetente, destinatario, msg)
     server.quit()
+
+
+class newUsuario(object):
+    def __init__(self, a, b, c, d, e, f, g, h, i, j):
+        dateUser[len(dateUser)] = [a, b, c, d, e, f, g, h, i, j]

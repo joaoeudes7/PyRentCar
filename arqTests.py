@@ -125,5 +125,6 @@ import User
 # while validNomeSobrenome(nome) == False:
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 
-Endereço = input("Endereço: ")
-User.validaEndereco(Endereço)
+Data = input("Data: ")
+while User.val_cpf(Data) == False:
+    Data = input("CPF INvalido! Digite:")
