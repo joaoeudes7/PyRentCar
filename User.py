@@ -59,11 +59,16 @@ def puxarDados():
 # def getTelefone(i):
 #     return dateUser[i][9]
 #
-
 # Validando
-def val_cpf(cpf):
-    cpf = list(cpf)
+def cpfExistente(m):
+    for i in range(len(dateUser)):
+        return bool(dateUser[i][3] == m)
 
+def val_cpf(cpf):
+    puxarDados()
+    while cpfExistente(cpf) == True:
+        cpf = input("CPF já utilizado!\nDigite outro:")
+    cpf = list(cpf)
     for a in range(len(cpf)):
         cpf[a] = int(cpf[a])
 
@@ -83,9 +88,11 @@ def val_cpf(cpf):
     for a in range(len(mult2)):
         soma2 += cpf[a] * mult2[a]
     d2 = 11 - (soma2 % 11)
+
     if d2 == 10 or d2 == 11:
         d2 = 0
     cpf.append(d2)
+
     while bool(d1 == cpf[9] and d2 == cpf[10]) is False:
         cpf = input("CPF Inválido!\nDigite outro CPF: ")
 
@@ -96,7 +103,7 @@ def valida_outros(variavel, qtd_letras):
 
 
 def validaEndereco(m):
-    while bool(re.match('[A-Za-z0-9ãõẽíóáç .,º ]{5,25}', m)) is False:
+    while bool(re.match('[A-Za-z0-9ãõẽíóáç .,º' ']{5,25}', m)) is False:
         m = input('Endereço Inválido!\nDigite um novo endereço: ')
 
 
@@ -143,14 +150,11 @@ def mostrarUsers():
 def salvarDados():
     conteudo = ''
     Arquivo = open(DB, 'a+')
-    print("passei aqui 1")
     for i in range(len(dateUser)):
-        print("passei aqui 2")
-        conteudo = dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
-                   dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
-                   dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
+        conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
+                    dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
+                    dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
     Arquivo.writelines(conteudo)
-    print("passei aqui 3")
     Arquivo.close()
 
 

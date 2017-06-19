@@ -126,5 +126,4 @@ import User
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 
 Data = input("Data: ")
-while User.val_cpf(Data) == False:
-    Data = input("CPF INvalido! Digite:")
+User.val_cpf(Data)
