@@ -58,7 +58,7 @@ while op != 10:
         while User.valida_outros(CNH, 10) is False:
             CNH = input("CNH Inválida!\nDigite outra CNH: ")
 
-        Endereco = input("Endereço: ")
+        Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
         User.validaEndereco(Endereco)
 
         Fone = input("Telefone (xx) xxxxx-xxxx: ")

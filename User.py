@@ -104,7 +104,7 @@ def valida_outros(variavel, qtd_letras):
 
 def validaEndereco(m):
     while bool(re.match('[A-Za-z0-9ãõẽíóáç .,º' ']{5,25}', m)) is False:
-        m = input('Endereço Inválido!\nDigite um novo endereço: ')
+        m = input('Endereço Inválido!\nDigite um novo endereço, no formato (Rua, Número, Cidade-Estado): ')
 
 
 def validaFone(m):
