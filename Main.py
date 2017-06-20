@@ -24,8 +24,9 @@ while op != 10:
 6 - Devolução de veículos
 7 - Consultar veículos disponíveis
 8 - Consultar registro de emprśtimos efetuados
+9 - Menu de veículos
 \n/// MENU DE HISTÓRICOS
-9 - Consultar históricos da empresa
+10 - Consultar históricos da empresa
 \n0 - Sair\n\n''')
 
     op = int(input("// Digite uma opção do menu acima: "))
@@ -134,6 +135,37 @@ while op != 10:
         optDel = input("Qual destes quer remover?")
         User.removerUser(optDel)
     elif op == 9:
+        op = ""
+        while op != 10:
+            print("MENU DE VEÍCULOS")
+            print("1 - Cadastrar veículos")
+            print("2 - Editar veículos")
+            print("0 - Voltar")
+            op = int(input("Digite uma opção do menu acima: "))
+
+            if op == 1:
+                Car_Model = input("Qual o modelo do veículo? ")
+                Car_Color = input("Qual a cor do veículo? ")
+                Car_Year = input("Qual o ano do veículo? ")
+                Car_Price = input("Qual o preço do veículo? ")
+                Car_Plate = input("Qual a placa de veículo no formato 'XXX0000'? ")
+                while Veiculos.validaPlaca(Car_Plate):
+                    Car_Plate = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
+                Car_Renavam = input("Qual o número renavam do veículo? ")
+                while Veiculos.validaRenavam(Car_Year, Car_Renavam):
+                    Car_Renavam = input("Número renavam inválido!\nDigite um número renavam válido: ")
+                Car_KM = input("Digite os quilômetros rodados do veículo: ")
+
+                Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM)
+                Veiculos.salvarDados()
+
+            elif op == 0:
+                print()
+
+            else:
+                print("OPÇÃO INVÁLIDA!")
+
+    elif op == 10:
         op = ""
         while op != 10:
             print("MENU DE HISTÓRICOS")

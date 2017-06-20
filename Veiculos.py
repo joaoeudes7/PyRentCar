@@ -5,21 +5,18 @@ veiculos_alugados = {}
 DB_Veiculos = "DB_Veiculos.dat"
 DB_Veiculos_alugados = "DB_Veiculos_alugados.dat"
 
-class newCarro(object):
-    def __init__(self, nome_veiculo, cor_veiculo, ano_veiculo, preco_veiculo, placa_veiculo, renavam_veiculo,
-                 km_rodados):
-        self.nome_veiculo = nome_veiculo
-        self.ano_veiculo = ano_veiculo
-        self.preco_veiculo = preco_veiculo
-        self.cor_veiculo = cor_veiculo
-        self.placa_veiculo = placa_veiculo
-        self.renavam_veiculo = renavam_veiculo
-        self.km_rodados = km_rodados
+class newCar(object):
+    def __init__(self, a, b, c, d, e, f, g):
+        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
 
-    def salvarDados(self):
-        with open(DB_Veiculos, "a+") as Arquivo:
-            Arquivo.write(self.nome_veiculo + "|" + self.cor_veiculo + "|" + self.ano_veiculo + "|" + self.placa_veiculo + "|" + self.renavam_veiculo + "|" + self.preco_veiculo + "|" + self.km_rodados + "|\n")
-            Arquivo.close()
+def salvarDados():
+    conteudo = ''
+    Arquivo = open(DB_Veiculos, 'a+')
+    for i in range(len(dados_Veiculos)):
+        conteudo += dados_Veiculos[i][0] + '|' + dados_Veiculos[i][1] + '|' + dados_Veiculos[i][2] + '|' + dados_Veiculos[i][3] + '|' + \
+                    dados_Veiculos[i][4] + '|' + dados_Veiculos[i][5] + '|' + dados_Veiculos[i][6] + '|\n'
+    Arquivo.writelines(conteudo)
+    Arquivo.close()
 
 
 def limparDados():
@@ -67,6 +64,7 @@ def validaPlaca(m):
     return bool(re.match("^\w{3}-\d{4}$", m))
 
 def validaRenavam(ano, renavam):
+    ano = int(ano)
     renavam = list(renavam)
     renavam = len(renavam)
 
