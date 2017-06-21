@@ -1,71 +1,32 @@
 import re
-from datetime import datetime
+import time
 
 dateUser = {}
 DB = 'DB_User.dat'
 
 
 # Ações de dados
-def puxarDados():
+def pullData():
     try:
-        Arquivo = open(DB, 'r+')
-        Linha = Arquivo.readline()
-        tam = len(dateUser)
-        while Linha:
-            read = Linha.split('|')
-            dateUser[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
+        with open(DB, 'r+') as Arquivo:
             Linha = Arquivo.readline()
-        Arquivo.close()
+            while Linha:
+                read = Linha.split('|')
+                tam = len(dateUser)
+                dateUser[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
+                Linha = Arquivo.readline()
+            print(dateUser)
     except:
         print('Não existe Dados')
 
-
-# def getNome(i):
-#     return dateUser[i][0]
-#
-#
-# def getSobrenome(i):
-#     return dateUser[i][1]
-#
-#
-# def getData(i):
-#     return dateUser[i][2]
-#
-#
-# def getCpf(i):
-#     return dateUser[i][3]
-#
-#
-# def getNomeMae(i):
-#     return dateUser[i][4]
-#
-#
-# def getRG(i):
-#     return dateUser[i][5]
-#
-#
-# def getEmail(i):
-#     return dateUser[i][6]
-#
-#
-# def getCnh(i):
-#     return dateUser[i][7]
-#
-#
-# def getEndereco(i):
-#     return dateUser[i][8]
-#
-#
-# def getTelefone(i):
-#     return dateUser[i][9]
-#
 # Validando
 def cpfExistente(m):
     for i in range(len(dateUser)):
         return bool(dateUser[i][3] == m)
 
-def val_cpf(cpf):
-    puxarDados()
+
+def validCpf(cpf):
+    pullData()
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
     cpf = list(cpf)
@@ -73,7 +34,7 @@ def val_cpf(cpf):
         cpf[a] = int(cpf[a])
 
     mult = [10, 9, 8, 7, 6, 5, 4, 3, 2]
-    mult2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]
+    mult2 = [11] + mult
 
     soma = 0
     soma2 = 0
@@ -97,75 +58,69 @@ def val_cpf(cpf):
         cpf = input("CPF Inválido!\nDigite outro CPF: ")
 
 
-def valida_outros(variavel, qtd_letras):
+def validOthers(variavel, qtd_letras):
     variavel = re.sub('[a-z,A-Z]', '', variavel)
     return bool(len(variavel) == qtd_letras)
 
 
-def validaEndereco(m):
+def validAddress(m):
     while bool(re.match('[A-Za-z0-9ãõẽíóáç .,º' ']{5,25}', m)) is False:
         m = input('Endereço Inválido!\nDigite um novo endereço, no formato (Rua, Número, Cidade-Estado): ')
 
 
-def validaFone(m):
+def validFone(m):
     while bool(re.match('^\([1-9]{2}\) [2-9]{2,3}[0-9]{2}\-[0-9]{4}$', m)) is False:
         m = input('Número errado!\nDigite outro número: ')
 
 
-def validaEmail(email):
+def validEmail(email):
     while bool(re.match('[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}', email)) is False:
         email = input('Email Inválido!\nDigite outro email: ')
 
 
-def validNomeSobrenome(m, n):
-    while bool(re.match('[a-zA-Zãõçóúáé ]{2,}', m)) is False:
+def validName(m, n):
+    while bool(re.match('[a-zA-Zãõçóúáéí ]{2,}', m)) is False:
         m = input(n + ' Inválido!\nDigite outro ' + n + ': ')
 
 
-def validData(m):
+def validDate(m):
     try:
-        data = m.split('/')
-        dia = data[0]
-        mes = data[1]
-        ano = data[2]
-        nas = datetime(int(ano), int(mes), int(dia))
-        return True
+        date = time.strptime(m, '%d/%m/%Y')
+        return bool(date.tm_year <= (int(time.strftime("%Y")) - 18))
     except:
         return False
 
 
 # Pesquisa
-def pesquisar(termo):
+def search(term):
     for i in dateUser:
-        if termo.upper() in dateUser[i][0].upper():
+        if term.upper() in dateUser[i][0].upper():
             print(dateUser[i])
 
 
-def mostrarUsers():
+def showUsers():
     for i in range(len(dateUser)):
         print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
 
 
 # Ediçao de cadastro
-def salvarDados():
+def saveData():
     conteudo = ''
-    Arquivo = open(DB, 'a+')
-    for i in range(len(dateUser)):
-        conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
-                    dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
-                    dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
-    Arquivo.writelines(conteudo)
-    Arquivo.close()
-
+    with open(DB, 'a+') as arquivo:
+        for i in range(len(dateUser)):
+            conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
+                        dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
+                        dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
+        arquivo.writelines(conteudo)
 
 def editUser(m, n, v):
     dateUser[int(m) - 1][v - 1] = n
-    salvarDados()
+    saveData()
 
 
-def removerUser(opt):
+def deleteUser(opt):
     dateUser.pop([opt - 1])
-    salvarDados()
+    saveData()
 
 
 def sendEmail():

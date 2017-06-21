@@ -1,4 +1,3 @@
-# import re
 import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
@@ -124,6 +123,6 @@ import User
 # nome = input("Nome:   ")
 # while validNomeSobrenome(nome) == False:
 #     nome = input("Nome inválido! Digite um Nome válido: ")
-
-Data = input("Data: ")
-User.val_cpf(Data)
+#
+# )
+User.pullData()

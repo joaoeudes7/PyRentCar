@@ -61,11 +61,12 @@ def pesquisar(termo):
 
 #VALIDAÇÕES
 def validaPlaca(m):
-    return bool(re.match("^\w{3}-\d{4}$", m))
+    while bool(re.match("^\w{3}-\d{4}$", m)) is False:
+        Car_Plate = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
 
 def validaRenavam(ano, renavam):
     ano = int(ano)
-    renavam = list(renavam)
-    renavam = len(renavam)
+    tam = len(renavam)
 
-    return bool(ano < 2013 and renavam == 9 or ano >= 2013 and renavam == 11)
+    while bool((ano < 2013 and tam == 9) or (ano >= 2013 and tam == 11)) is False:
+        renavam = input("Número renavam inválido!\nDigite um número renavam válido: ")
