@@ -60,6 +60,22 @@ def pesquisar(termo):
 
 
 #VALIDAÇÕES
+def valModel(m):
+    while bool(re.match('[a-zA-Z0-9çãõẽéêíóá .,' ']{2,30}', m)) is False:
+        m = input("Modelo de veículo inválido!\nDigite um modelo válido: ")
+
+def valColor(c):
+    while bool(re.match('[a-zA-Z .' ']{4,8}', c)) is False:
+        c = input("Cor inválida!\nDigite uma cor válida: ")
+
+def valYear(y):
+    while bool(re.match('[1-2][0-9][0-9][0-9]', y)) is False:
+        y = input("Ano inválido!\nDigite um ano válido: ")
+
+def valPrice(p):
+    while bool(re.match('[0-9,.]{6,8}', p)) is False:
+        p = input("Preço inválido!\nDigite um preço válido no formato '000,00' ou '0.000,00': ")
+
 def validaPlaca(m):
     while bool(re.match("^\w{3}-\d{4}$", m)) is False:
         Car_Plate = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
@@ -70,3 +86,7 @@ def validaRenavam(ano, renavam):
 
     while bool((ano < 2013 and tam == 9) or (ano >= 2013 and tam == 11)) is False:
         renavam = input("Número renavam inválido!\nDigite um número renavam válido: ")
+
+def valKM(km):
+    while bool(re.match('[0-9]{6}', km)) is False:
+        km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")

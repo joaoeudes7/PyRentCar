@@ -144,21 +144,21 @@ while op != 10:
 
             if op == 1:
                 Car_Model = input("Qual o modelo do veículo? ")
-                # Validação em Falta
+                Veiculos.valModel(Car_Model)
                 Car_Color = input("Qual a cor do veículo? ")
-                # Validação em Falta
+                Veiculos.valColor(Car_Color)
                 Car_Year = input("Qual o ano do veículo? ")
-                # Validação em Falta
-                Car_Price = input("Qual o preço do veículo? ")
-                # Validação em Falta
+                Veiculos.valYear(Car_Year)
+                Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
+                Veiculos.valPrice(Car_Price)
                 Car_Plate = input("Qual a placa de veículo no formato 'XXX0000'? ")
                 Veiculos.validaPlaca(Car_Plate)
                 # Validação em Falta
                 Car_Renavam = input("Qual o número renavam do veículo? ")
                 Veiculos.validaRenavam(Car_Year, Car_Renavam)
                 # Validação em Falta
-                Car_KM = input("Digite os quilômetros rodados do veículo: ")
-                # Validação em Falta
+                Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
+                Veiculos.valKM(Car_KM)
                 Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM)
                 Veiculos.salvarDados()
 
