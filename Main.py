@@ -2,17 +2,17 @@ import User
 import Veiculos
 
 DB = "DB_User.dat"
-###############################
-## 		PY RENT A CAR 		##
-## Create by:               ##
-##        Bruno and João    ##
+# ############################
+# 		PY RENT A CAR 		##
+# Create by:                ##
+#         Bruno and João    ##
 ###############################
 
 op, cnh, rg = '', '', ''
 
 while op != 10:
-    User.pullData()
-    Veiculos.puxarDados()
+    User.pushData()
+    Veiculos.pushData()
     print('''/// MENU DE CADASTRAMENTO
 1 - Cadastrar novo cliente
 2 - Consultar cliente existente
@@ -32,37 +32,37 @@ while op != 10:
     if op == 1:
 
         Nome_User = input("Nome: ")
-        User.validName(Nome_User, "Nome")
+        User.valName(Nome_User, "Nome")
 
         Sobrenome_User = input("Sobrenome: ")
-        User.validName(Sobrenome_User, "Sobrenome")
+        User.valName(Sobrenome_User, "Sobrenome")
 
         dataN = input("Digite a data de nascimento (dd/mm/aaaa): ")
-        while User.validDate(dataN) is False:
+        while User.valDate(dataN) is False:
             dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
 
         CPF = input("CPF: ")
-        User.validCpf(CPF)
+        User.valCpf(CPF)
 
         Nome_Mae = input("Nome da Mãe: ")
-        User.validName(Nome_Mae, "Nome")
+        User.valName(Nome_Mae, "Nome")
 
         RG = input("RG: ")
-        while User.validOthers(RG, 9) is False:
+        while User.valOthers(RG, 9) is False:
             RG = input("RG Inválido!\nDigite outro RG: ")
 
         Email = input("Email:")
-        User.validEmail(Email)
+        User.valEmail(Email)
 
         CNH = input("CNH: ")
-        while User.validOthers(CNH, 10) is False:
+        while User.valOthers(CNH, 10) is False:
             CNH = input("CNH Inválida!\nDigite outra CNH: ")
 
         Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
-        User.validAddress(Endereco)
+        User.valAddress(Endereco)
 
         Fone = input("Telefone (xx) xxxxx-xxxx: ")
-        User.validFone(Fone)
+        User.valFone(Fone)
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone)
         User.saveData()
@@ -91,38 +91,38 @@ while op != 10:
 
         if op == 1:
             Nome_User = input("Digite o novo nome: ")
-            User.validName(Nome_User, "Nome")
+            User.valName(Nome_User, "Nome")
             User.editUser(editar, Nome_User, op)
         elif op == 2:
             Sobrenome_User = input("Digite o novo sobrenome: ")
-            User.validName(Sobrenome_User, "Sobrenome")
+            User.valName(Sobrenome_User, "Sobrenome")
             User.editUser(editar, Sobrenome_User, op)
         elif op == 3:
             dataN = input("Digite a nova data de nascimento (dd/mm/aaaa): ")
-            while User.validDate(dataN) is False:
+            while User.valDate(dataN) is False:
                 dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
             User.editUser(editar, dataN, op)
         elif op == 4:
             CPF = input("Digite o novo CPF: ")
-            while User.validCpf(CPF) is False:
+            while User.valCpf(CPF) is False:
                 CPF = input("CPF Inválido!\nDigite outro CPF: ")
             User.editUser(editar, CPF, op)
         elif op == 5:
             Nome_Mae = input("Digite o novo nome da Mãe: ")
-            User.validName(Nome_Mae, "Nome")
+            User.valName(Nome_Mae, "Nome")
             User.editUser(editar, Nome_Mae, op)
         elif op == 6:
             RG = input("RG: ")
-            while User.validOthers(RG, 9) is False:
+            while User.valOthers(RG, 9) is False:
                 RG = input("RG Inválido!\nDigite outro RG: ")
             User.editUser(editar, RG, op)
         elif op == 7:
             Email = input("Email:")
-            User.validEmail(Email)
+            User.valEmail(Email)
             User.editUser(editar, Email, op)
         elif op == 8:
             CNH = input("CNH: ")
-            while User.validOthers(CNH, 10) is False:
+            while User.valOthers(CNH, 10) is False:
                 CNH = input("CNH Inválida!\nDigite outra CNH: ")
             User.editUser(editar, CNH, op)
         elif op == 0:
@@ -152,15 +152,15 @@ while op != 10:
                 Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
                 Veiculos.valPrice(Car_Price)
                 Car_Plate = input("Qual a placa de veículo no formato 'XXX0000'? ")
-                Veiculos.validaPlaca(Car_Plate)
+                Veiculos.valPlate(Car_Plate)
                 # Validação em Falta
                 Car_Renavam = input("Qual o número renavam do veículo? ")
-                Veiculos.validaRenavam(Car_Year, Car_Renavam)
+                Veiculos.valRenaban(Car_Year, Car_Renavam)
                 # Validação em Falta
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
                 Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM)
-                Veiculos.salvarDados()
+                Veiculos.saveData()
 
             elif op == 0:
                 print()
