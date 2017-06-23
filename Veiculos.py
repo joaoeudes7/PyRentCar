@@ -9,7 +9,8 @@ class newCar(object):
     def __init__(self, a, b, c, d, e, f, g):
         dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
 
-def salvarDados():
+
+def saveData():
     conteudo = ''
     Arquivo = open(DB_Veiculos, 'a+')
     for i in range(len(dados_Veiculos)):
@@ -19,45 +20,46 @@ def salvarDados():
     Arquivo.close()
 
 
-def limparDados():
-    Arquivo = open(DB_Veiculos, 'w+')
-    Arquivo.writelines("")
-    Arquivo.close()
-
-
-def puxarDados():
+def pushData(db, lista):
     try:
-        Arquivo = open(DB_Veiculos, 'r+')
-        Linha = Arquivo.readline()
-        while Linha:
-            valores = Linha.split("|")
-            dados_Veiculos[len(dados_Veiculos)] = valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], valores[6]
+        with open(db, 'r+') as Arquivo:
             Linha = Arquivo.readline()
-        Arquivo.close()
+            while Linha:
+                valores = Linha.split("|")
+                lista[len(dados_Veiculos)] = valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], \
+                                             valores[6]
+                Linha = Arquivo.readline()
+            Arquivo.close()
     except:
         print("Não existe Dados")
 
-def alugar():
-    puxarDados(DB_Veiculos)
+
+def showCars():
+    pushData(DB_Veiculos, dados_Veiculos)
     j = 1
     print("Carros disponíveis:")
+    # Disponível para alugar
     for i in dados_Veiculos:
         print(j,"-",dados_Veiculos[i][0])
         j += 1
+
+
+def rentCar():
+    showCars()
     print("\n0 - Nenhum")
     escolha_d_carro = int(input("Qual Carro quer alugar?"))
     if escolha_d_carro != 0:
-        cont = input("Você irá alugar o veículo:\n",dados_Veiculos[escolha_d_carro-1],"\n Continuar? (S/n)").upper()
+        cont = input("Você irá alugar o veículo:\n", dados_Veiculos[escolha_d_carro - 1], "\n Continuar? (S/n)").upper()
         if cont == "S":
             veiculos_alugados = dados_Veiculos[escolha_d_carro - 1][:]
             dados_Veiculos.pop(escolha_d_carro - 1)
 
-def pesquisar(termo):
-    puxarDados()
-    for i in dados_Veiculos:
-        if termo.upper() in dados_Veiculos[i][0].upper():
-            print(dados_Veiculos[i])
 
+def search(term):
+    pushData()
+    for i in dados_Veiculos:
+        if term.upper() in dados_Veiculos[i][0].upper():
+            print(dados_Veiculos[i])
 
 #VALIDAÇÕES
 def valModel(m):
@@ -76,16 +78,15 @@ def valPrice(p):
     while bool(re.match('[0-9,.]{6,8}', p)) is False:
         p = input("Preço inválido!\nDigite um preço válido no formato '000,00' ou '0.000,00': ")
 
-def validaPlaca(m):
+
+def valPlate(m):
     while bool(re.match("^\w{3}-\d{4}$", m)) is False:
-        Car_Plate = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
+        m = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
 
-def validaRenavam(ano, renavam):
-    ano = int(ano)
-    tam = len(renavam)
 
-    while bool((ano < 2013 and tam == 9) or (ano >= 2013 and tam == 11)) is False:
-        renavam = input("Número renavam inválido!\nDigite um número renavam válido: ")
+def valRenaban(a, t):
+    while bool((int(a) < 2013 and len(t) == 9) or (int(a) >= 2013 and len(t) == 11)) is False:
+        t = input("Número renavam inválido!\nDigite um número renavam válido: ")
 
 def valKM(km):
     while bool(re.match('[0-9]{6}', km)) is False:

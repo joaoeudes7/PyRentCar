@@ -6,7 +6,7 @@ DB = 'DB_User.dat'
 
 
 # Ações de dados
-def pullData():
+def pushData():
     try:
         with open(DB, 'r+') as Arquivo:
             Linha = Arquivo.readline()
@@ -25,8 +25,8 @@ def cpfExistente(m):
         return bool(dateUser[i][3] == m)
 
 
-def validCpf(cpf):
-    pullData()
+def valCpf(cpf):
+    pushData()
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
     cpf = list(cpf)
@@ -58,32 +58,32 @@ def validCpf(cpf):
         cpf = input("CPF Inválido!\nDigite outro CPF: ")
 
 
-def validOthers(variavel, qtd_letras):
+def valOthers(variavel, qtd_letras):
     variavel = re.sub('[a-z,A-Z]', '', variavel)
     return bool(len(variavel) == qtd_letras)
 
 
-def validAddress(m):
+def valAddress(m):
     while bool(re.match('[A-Za-z0-9ãõẽíóáç .,º' ']{5,25}', m)) is False:
         m = input('Endereço Inválido!\nDigite um novo endereço, no formato (Rua, Número, Cidade-Estado): ')
 
 
-def validFone(m):
+def valFone(m):
     while bool(re.match('^\([1-9]{2}\) [2-9]{2,3}[0-9]{2}\-[0-9]{4}$', m)) is False:
         m = input('Número errado!\nDigite outro número: ')
 
 
-def validEmail(email):
+def valEmail(email):
     while bool(re.match('[a-z0-9\-\_\.]+\@[\w\-\_\.]+[a-z]{2,4}', email)) is False:
         email = input('Email Inválido!\nDigite outro email: ')
 
 
-def validName(m, n):
+def valName(m, n):
     while bool(re.match('[a-zA-Zãõçóúáéí ]{2,}', m)) is False:
         m = input(n + ' Inválido!\nDigite outro ' + n + ': ')
 
 
-def validDate(m):
+def valDate(m):
     try:
         date = time.strptime(m, '%d/%m/%Y')
         return bool(date.tm_year <= (int(time.strftime("%Y")) - 18))

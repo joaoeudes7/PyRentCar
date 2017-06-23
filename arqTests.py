@@ -1,4 +1,4 @@
-import User
+import Veiculos
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -125,4 +125,4 @@ import User
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 #
 # )
-User.pullData()
+Veiculos.rentCar()
