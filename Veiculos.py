@@ -49,14 +49,15 @@ def rentCar():
     print("\n0 - Nenhum")
     escolha_d_carro = int(input("Qual Carro quer alugar?"))
     if escolha_d_carro != 0:
-        cont = input("Você irá alugar o veículo:\n", dados_Veiculos[escolha_d_carro - 1], "\n Continuar? (S/n)").upper()
+        print("Você irá alugar o veículo:\n", dados_Veiculos[escolha_d_carro - 1], "\n")
+        cont = input("Continuar? (S/n)").upper()
         if cont == "S":
             veiculos_alugados = dados_Veiculos[escolha_d_carro - 1][:]
             dados_Veiculos.pop(escolha_d_carro - 1)
 
 
 def search(term):
-    pushData()
+    pushData(DB_Veiculos, dados_Veiculos)
     for i in dados_Veiculos:
         if term.upper() in dados_Veiculos[i][0].upper():
             print(dados_Veiculos[i])
