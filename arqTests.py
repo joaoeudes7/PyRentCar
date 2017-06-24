@@ -126,4 +126,3 @@ import Veiculos
 #
 # )
 Veiculos.rentCar()
-Tetstststststststststst

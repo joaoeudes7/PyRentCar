@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import re
 
 dados_Veiculos = {}
@@ -10,17 +13,17 @@ class newCar(object):
         dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
 
 
-def saveData():
+def saveData(db):
     conteudo = ''
-    Arquivo = open(DB_Veiculos, 'a+')
-    for i in range(len(dados_Veiculos)):
+    Arquivo = open(db, 'a+')
+    for i in dados_Veiculos:
         conteudo += dados_Veiculos[i][0] + '|' + dados_Veiculos[i][1] + '|' + dados_Veiculos[i][2] + '|' + dados_Veiculos[i][3] + '|' + \
                     dados_Veiculos[i][4] + '|' + dados_Veiculos[i][5] + '|' + dados_Veiculos[i][6] + '|\n'
     Arquivo.writelines(conteudo)
     Arquivo.close()
 
 
-def pushData(db, lista):
+def pullData(db, lista):
     try:
         with open(db, 'r+') as Arquivo:
             Linha = Arquivo.readline()
@@ -34,8 +37,14 @@ def pushData(db, lista):
         print("Não existe Dados")
 
 
+def CarsAlugados():
+    j = 1
+    print("Carros alugados:")
+    # Disponível para alugar
+    for i in dados_Veiculos:
+        print(j, "-", veiculos_alugados[i][0])
+        j += 1
 def showCars():
-    pushData(DB_Veiculos, dados_Veiculos)
     j = 1
     print("Carros disponíveis:")
     # Disponível para alugar
@@ -57,7 +66,7 @@ def rentCar():
 
 
 def search(term):
-    pushData(DB_Veiculos, dados_Veiculos)
+    pullData(DB_Veiculos, dados_Veiculos)
     for i in dados_Veiculos:
         if term.upper() in dados_Veiculos[i][0].upper():
             print(dados_Veiculos[i])

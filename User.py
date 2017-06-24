@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import re
 import time
 
@@ -6,14 +9,14 @@ DB = 'DB_User.dat'
 
 
 # Ações de dados
-def pushData():
+def pullData():
     try:
         with open(DB, 'r+') as Arquivo:
             Linha = Arquivo.readline()
             while Linha:
                 read = Linha.split('|')
-                tam = len(dateUser)
-                dateUser[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
+                dateUser[read[3]] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], \
+                                    read[9]
                 Linha = Arquivo.readline()
             print(dateUser)
     except:
@@ -26,7 +29,7 @@ def cpfExistente(m):
 
 
 def valCpf(cpf):
-    pushData()
+    pullData()
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
     cpf = list(cpf)
@@ -99,7 +102,7 @@ def search(term):
 
 
 def showUsers():
-    for i in range(len(dateUser)):
+    for i in dateUser:
         print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
 
 
@@ -107,10 +110,10 @@ def showUsers():
 def saveData():
     conteudo = ''
     with open(DB, 'a+') as arquivo:
-        for i in range(len(dateUser)):
+        for i in dateUser:
             conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
                         dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
-                        dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
+                        dateUser[i][8] + '|' + dateUser[i][9] + '|' + dateUser[i][10] + '|\n'
         arquivo.writelines(conteudo)
 
 def editUser(m, n, v):
@@ -153,5 +156,5 @@ def sendEmail():
 
 
 class newUsuario(object):
-    def __init__(self, a, b, c, d, e, f, g, h, i, j):
-        dateUser[len(dateUser)] = [a, b, c, d, e, f, g, h, i, j]
+    def __init__(self, a, b, c, d, e, f, g, h, i, j, l):
+        dateUser[d] = [a, b, c, d, e, f, g, h, i, j, l]
