@@ -10,13 +10,10 @@ DB = 'DB_User.dat'
 
 # Acesso aos dados
 def pullData():
-    dataUser = {}
     with open(DB, 'r+') as Arquivo:
-        for Linha in Arquivo:
-            read = Linha.split('|')
-            if len(read) > 1:
-                for k in read:
-                    dataUser[read[3]].append(k)
+        for k in Arquivo:
+            read = k.split('|')
+            dataUser[read[3]] = read[:]
     print(dataUser)
     Arquivo.close()
 

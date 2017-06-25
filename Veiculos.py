@@ -19,12 +19,9 @@ def saveData(db):
 
 def pullData(db, lista):
     with open(db, 'r+') as Arquivo:
-        for Linha in Arquivo:
-            read = Linha.split('|')
-            if len(read) > 1:
-                lista[read[3]] = []
-                for k in read:
-                    lista[read[3]].append(k)
+        for k in Arquivo:
+            read = k.split('|')
+            lista[len(lista)] = read[:]
 
 def CarsAlugados():
     j = 1
