@@ -14,14 +14,19 @@ def pullData():
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
+            read[10] = int(read[10])
             dataUser[read[3]] = read[:]
+    for i in dataUser:
+        print(i, ":", dataUser[i])
 
 def saveData():
     conteudo = ''
     with open(DB, 'a+') as arquivo:
+        arquivo.seek(0)
+        arquivo.truncate()
         for i in dataUser:
             for k in range(len(dataUser[i])):
-                conteudo += dataUser[i][k] + '|'
+                conteudo += str(dataUser[i][k]) + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
     arquivo.close()
@@ -96,6 +101,16 @@ def valDate(m):
         return False
 
 
+def bestClients():
+    melhoresCli = {}
+    for i in dataUser:
+        if dataUser[i][10] != 0:
+            melhoresCli[len(melhoresCli)] = dataUser[i][0], dataUser[i][10]
+    melhoresCli = sorted(melhoresCli.values(), reverse=True)[:]
+
+    print("///Nome do cliente/Quantidade de alugueis:")
+    for i in melhoresCli:
+        print("\t", i[0], " | ", i[1])
 # Pesquisa
 def search(term):
     for i in dataUser:

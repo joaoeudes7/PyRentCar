@@ -162,18 +162,17 @@ while op != 10:
                 # Validação em Falta
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
-                Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM)
+                Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
                 Veiculos.saveData(Veiculos.DB_Veiculos)
 
             elif op == 0:
-                print()
-
+                break
             else:
                 print("OPÇÃO INVÁLIDA!")
 
     elif op == 10:
         op = ""
-        while op != 10:
+        while op != 0:
             Veiculos.pullData(Veiculos.DB_Veiculos_alugados, Veiculos.veiculos_alugados)
             Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
             print("///MENU DE HISTÓRICOS")
@@ -186,12 +185,14 @@ while op != 10:
 
             if op == 1:
                 Veiculos.CarsAlugados()
-
+            elif op == 3:
+                User.bestClients()
+            elif op == 0:
+                break
             else:
                 print("OPÇÃO INVÁLIDA!")
 
     elif op == 0:
         break
-
     else:
         print("OPÇÃO INVÁLIDA!")

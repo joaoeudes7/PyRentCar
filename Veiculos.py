@@ -13,12 +13,12 @@ def saveData(db):
     with open(db, 'a+') as arquivo:
         for i in dados_Veiculos:
             for k in range(len(dados_Veiculos[i])):
-                conteudo += dados_Veiculos[i][k] + '|'
+                conteudo += str(dados_Veiculos[i][k]) + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
 
 def pullData(db, lista):
-    with open(db, 'r+') as Arquivo:
+    with open(db, 'a+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
@@ -91,6 +91,6 @@ def valKM(km):
 
 
 class newCar(object):
-    def __init__(self, a, b, c, d, e, f, g):
-        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
+    def __init__(self, a, b, c, d, e, f, g, h):
+        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g, h]
         saveData(DB_Veiculos)
