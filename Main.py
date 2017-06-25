@@ -15,7 +15,6 @@ op = ''
 while op != 10:
     User.pullData()
     Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
-    print("keys:", User.dataUser.keys())
     print('/// MENU DE CADASTRAMENTO')
     print('1 - Cadastrar novo cliente')
     print('2 - Consultar cliente existente')

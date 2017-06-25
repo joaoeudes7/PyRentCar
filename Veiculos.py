@@ -21,6 +21,7 @@ def pullData(db, lista):
     with open(db, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
+            read.pop(len(read) - 1)
             lista[len(lista)] = read[:]
 
 def CarsAlugados():

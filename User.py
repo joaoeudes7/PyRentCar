@@ -13,9 +13,8 @@ def pullData():
     with open(DB, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
+            read.pop(len(read) - 1)
             dataUser[read[3]] = read[:]
-    print(dataUser)
-    Arquivo.close()
 
 def saveData():
     conteudo = ''
@@ -110,7 +109,7 @@ def showUsers():
 
 # Ediçao de cadastro
 def checkUserExist(m):
-    while bool(m not in dataUser) is False:
+    while bool(m not in dataUser) is True:
         m = input('CPF não existe nos registros!\nDigite outro CPF: ')
 
 
@@ -127,7 +126,7 @@ def editCPF(m, n, v):
 
 def editUser(m, n, v):
     dataUser[m][v - 1] = n
-    deleteUser(m)
+    saveData()
 
 
 def sendEmail():
