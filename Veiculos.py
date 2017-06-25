@@ -8,34 +8,23 @@ veiculos_alugados = {}
 DB_Veiculos = "DB_Veiculos.dat"
 DB_Veiculos_alugados = "DB_Veiculos_alugados.dat"
 
-class newCar(object):
-    def __init__(self, a, b, c, d, e, f, g):
-        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
-
-
 def saveData(db):
     conteudo = ''
-    Arquivo = open(db, 'a+')
-    for i in dados_Veiculos:
-        conteudo += dados_Veiculos[i][0] + '|' + dados_Veiculos[i][1] + '|' + dados_Veiculos[i][2] + '|' + dados_Veiculos[i][3] + '|' + \
-                    dados_Veiculos[i][4] + '|' + dados_Veiculos[i][5] + '|' + dados_Veiculos[i][6] + '|\n'
-    Arquivo.writelines(conteudo)
-    Arquivo.close()
-
+    with open(db, 'a+') as arquivo:
+        for i in dados_Veiculos:
+            for k in range(len(dados_Veiculos[i])):
+                conteudo += dados_Veiculos[i][k] + '|'
+            conteudo += '\n'
+        arquivo.writelines(conteudo)
 
 def pullData(db, lista):
-    try:
-        with open(db, 'r+') as Arquivo:
-            Linha = Arquivo.readline()
-            while Linha:
-                valores = Linha.split("|")
-                lista[len(dados_Veiculos)] = valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], \
-                                             valores[6]
-                Linha = Arquivo.readline()
-            Arquivo.close()
-    except:
-        print("Não existe Dados")
-
+    with open(db, 'r+') as Arquivo:
+        for Linha in Arquivo:
+            read = Linha.split('|')
+            if len(read) > 1:
+                lista[read[3]] = []
+                for k in read:
+                    lista[read[3]].append(k)
 
 def CarsAlugados():
     j = 1
@@ -101,3 +90,9 @@ def valRenaban(a, t):
 def valKM(km):
     while bool(re.match('[0-9]{6}', km)) is False:
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
+
+
+class newCar(object):
+    def __init__(self, a, b, c, d, e, f, g):
+        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g]
+        saveData(DB_Veiculos)

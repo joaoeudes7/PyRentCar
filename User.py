@@ -4,37 +4,35 @@
 import re
 import time
 
-dateUser = {}
+dataUser = {}
 DB = 'DB_User.dat'
 
 
-# Ações de dados
+# Acesso aos dados
 def pullData():
+    dataUser = {}
     with open(DB, 'r+') as Arquivo:
-        Linha = Arquivo.readline()
-        while Linha:
+        for Linha in Arquivo:
             read = Linha.split('|')
-            dateUser[read[3]] = []
-            for k in read:
-                dateUser[read[3]].append(k)
-            Linha = Arquivo.readline()
-        print(dateUser)
-
+            if len(read) > 1:
+                for k in read:
+                    dataUser[read[3]].append(k)
+    print(dataUser)
+    Arquivo.close()
 
 def saveData():
     conteudo = ''
     with open(DB, 'a+') as arquivo:
-        for i in dateUser:
-            for k in range(len(dateUser[i])):
-                conteudo += dateUser[i][k] + '|'
+        for i in dataUser:
+            for k in range(len(dataUser[i])):
+                conteudo += dataUser[i][k] + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
-
+    arquivo.close()
 
 # Validando
 def cpfExistente(m):
-    for i in range(len(dateUser)):
-        return bool(dateUser[i][3] == m)
+    return bool(m in dataUser)
 
 
 def valCpf(cpf):
@@ -104,24 +102,35 @@ def valDate(m):
 
 # Pesquisa
 def search(term):
-    for i in dateUser:
-        if term.upper() in dateUser[i][0].upper():
-            print(dateUser[i])
+    for i in dataUser:
+        if term.upper() in dataUser[i][0].upper():
+            print(dataUser[i])
 
 
 def showUsers():
-    for i in dateUser:
-        print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
+    for i in dataUser:
+        print(i + 1, ' - ', dataUser[i][0], dataUser[i][1])
 
 # Ediçao de cadastro
+def checkUserExist(m):
+    while bool(m not in dataUser) is False:
+        m = input('CPF não existe nos registros!\nDigite outro CPF: ')
+
+
+def deleteUser(m):
+    del dataUser[m]
+    saveData()
+
+
+def editCPF(m, n, v):
+    dataUser[n] = dataUser[m][:]
+    dataUser[m][v - 1] = n
+    deleteUser(m)
+
+
 def editUser(m, n, v):
-    dateUser[int(m) - 1][v - 1] = n
-    saveData()
-
-
-def deleteUser(opt):
-    dateUser.pop([opt - 1])
-    saveData()
+    dataUser[m][v - 1] = n
+    deleteUser(m)
 
 
 def sendEmail():
@@ -155,6 +164,5 @@ def sendEmail():
 
 class newUsuario(object):
     def __init__(self, a, b, c, d, e, f, g, h, i, j, l):
-        dateUser[d] = [a, b, c, d, e, f, g, h, i, j, l]
+        dataUser[d] = [a, b, c, d, e, f, g, h, i, j, l]
         saveData()
-        print()

@@ -15,6 +15,7 @@ op = ''
 while op != 10:
     User.pullData()
     Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
+    print(list(User.dataUser))
     print('/// MENU DE CADASTRAMENTO')
     print('1 - Cadastrar novo cliente')
     print('2 - Consultar cliente existente')
@@ -74,9 +75,8 @@ while op != 10:
             User.search(termo)
 
     elif op == 3:
-        User.showUsers()
-
-        editar = input("Qual cliente quer editar?")
+        editar = input("Digite o CPF do cliente que deseja editar: ")
+        User.checkUserExist(editar)
         print("O que deseja alterar?")
         print("1 - Nome")
         print("2 - Sobrenome")
@@ -130,6 +130,9 @@ while op != 10:
             break
         else:
             print("Opcao invalida!")
+
+
+
     elif op == 4:
         User.showUsers()
         optDel = input("Qual destes quer remover?")
@@ -180,9 +183,9 @@ while op != 10:
             print("3 - Consultar os melhores clientes")
             print("4 - Consultar relatórios de locações em um determinado período")
             print("0 - Voltar")
-            op = int(input("Digite uma opção do menu acima: "))
+            op = int(input("\n\nDigite uma opção do menu acima: "))
 
-            if op == 0:
+            if op == 1:
                 Veiculos.CarsAlugados()
 
             else:

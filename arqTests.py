@@ -128,3 +128,5 @@ import User
 
 User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
                 "0")
+User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+                "0")
