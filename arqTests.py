@@ -1,4 +1,4 @@
-import Veiculos
+import User
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -125,4 +125,6 @@ import Veiculos
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 #
 # )
-Veiculos.rentCar()
+
+User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+                "0")

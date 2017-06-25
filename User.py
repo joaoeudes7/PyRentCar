@@ -10,17 +10,26 @@ DB = 'DB_User.dat'
 
 # Ações de dados
 def pullData():
-    try:
-        with open(DB, 'r+') as Arquivo:
+    with open(DB, 'r+') as Arquivo:
+        Linha = Arquivo.readline()
+        while Linha:
+            read = Linha.split('|')
+            dateUser[read[3]] = []
+            for k in read:
+                dateUser[read[3]].append(k)
             Linha = Arquivo.readline()
-            while Linha:
-                read = Linha.split('|')
-                dateUser[read[3]] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], \
-                                    read[9]
-                Linha = Arquivo.readline()
-            print(dateUser)
-    except:
-        print('Não existe Dados')
+        print(dateUser)
+
+
+def saveData():
+    conteudo = ''
+    with open(DB, 'a+') as arquivo:
+        for i in dateUser:
+            for k in range(len(dateUser[i])):
+                conteudo += dateUser[i][k] + '|'
+            conteudo += '\n'
+        arquivo.writelines(conteudo)
+
 
 # Validando
 def cpfExistente(m):
@@ -29,7 +38,6 @@ def cpfExistente(m):
 
 
 def valCpf(cpf):
-    pullData()
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
     cpf = list(cpf)
@@ -105,17 +113,7 @@ def showUsers():
     for i in dateUser:
         print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
 
-
 # Ediçao de cadastro
-def saveData():
-    conteudo = ''
-    with open(DB, 'a+') as arquivo:
-        for i in dateUser:
-            conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
-                        dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
-                        dateUser[i][8] + '|' + dateUser[i][9] + '|' + dateUser[i][10] + '|\n'
-        arquivo.writelines(conteudo)
-
 def editUser(m, n, v):
     dateUser[int(m) - 1][v - 1] = n
     saveData()
@@ -158,3 +156,5 @@ def sendEmail():
 class newUsuario(object):
     def __init__(self, a, b, c, d, e, f, g, h, i, j, l):
         dateUser[d] = [a, b, c, d, e, f, g, h, i, j, l]
+        saveData()
+        print()

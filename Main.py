@@ -10,7 +10,7 @@ import Veiculos
 #         Bruno and João    ##
 ###############################
 
-op, cnh, rg = '', '', ''
+op = ''
 
 while op != 10:
     User.pullData()
@@ -66,8 +66,7 @@ while op != 10:
         Fone = input("Telefone (xx) xxxxx-xxxx: ")
         User.valFone(Fone)
 
-        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, 0)
-        User.saveData()
+        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
     elif op == 2:
 
         while True:
