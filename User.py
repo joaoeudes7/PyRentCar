@@ -1,32 +1,42 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import re
 import time
 
-dateUser = {}
+dataUser = {}
 DB = 'DB_User.dat'
 
 
-# Ações de dados
-def pushData():
-    try:
-        with open(DB, 'r+') as Arquivo:
-            Linha = Arquivo.readline()
-            while Linha:
-                read = Linha.split('|')
-                tam = len(dateUser)
-                dateUser[tam] = read[0], read[1], read[2], read[3], read[4], read[5], read[6], read[7], read[8], read[9]
-                Linha = Arquivo.readline()
-            print(dateUser)
-    except:
-        print('Não existe Dados')
+# Acesso aos dados
+def pullData():
+    with open(DB, 'r+') as Arquivo:
+        for k in Arquivo:
+            read = k.split('|')
+            read.pop(len(read) - 1)
+            read[10] = int(read[10])
+            dataUser[read[3]] = read[:]
+    for i in dataUser:
+        print(i, ":", dataUser[i])
+
+def saveData():
+    conteudo = ''
+    with open(DB, 'a+') as arquivo:
+        arquivo.seek(0)
+        arquivo.truncate()
+        for i in dataUser:
+            for k in range(len(dataUser[i])):
+                conteudo += str(dataUser[i][k]) + '|'
+            conteudo += '\n'
+        arquivo.writelines(conteudo)
+    arquivo.close()
 
 # Validando
 def cpfExistente(m):
-    for i in range(len(dateUser)):
-        return bool(dateUser[i][3] == m)
+    return bool(m in dataUser)
 
 
 def valCpf(cpf):
-    pushData()
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
     cpf = list(cpf)
@@ -91,35 +101,46 @@ def valDate(m):
         return False
 
 
+def bestClients():
+    melhoresCli = {}
+    for i in dataUser:
+        if dataUser[i][10] != 0:
+            melhoresCli[len(melhoresCli)] = dataUser[i][0], dataUser[i][10]
+    melhoresCli = sorted(melhoresCli.values(), reverse=True)[:]
+
+    print("///Nome do cliente/Quantidade de alugueis:")
+    for i in melhoresCli:
+        print("\t", i[0], " | ", i[1])
 # Pesquisa
 def search(term):
-    for i in dateUser:
-        if term.upper() in dateUser[i][0].upper():
-            print(dateUser[i])
+    for i in dataUser:
+        if term.upper() in dataUser[i][0].upper():
+            print(dataUser[i])
 
 
 def showUsers():
-    for i in range(len(dateUser)):
-        print(i + 1, ' - ', dateUser[i][0], dateUser[i][1])
-
+    for i in dataUser:
+        print(i + 1, ' - ', dataUser[i][0], dataUser[i][1])
 
 # Ediçao de cadastro
-def saveData():
-    conteudo = ''
-    with open(DB, 'a+') as arquivo:
-        for i in range(len(dateUser)):
-            conteudo += dateUser[i][0] + '|' + dateUser[i][1] + '|' + dateUser[i][2] + '|' + dateUser[i][3] + '|' + \
-                        dateUser[i][4] + '|' + dateUser[i][5] + '|' + dateUser[i][6] + '|' + dateUser[i][7] + '|' + \
-                        dateUser[i][8] + '|' + dateUser[i][9] + '|\n'
-        arquivo.writelines(conteudo)
+def checkUserExist(m):
+    while bool(m not in dataUser) is True:
+        m = input('CPF não existe nos registros!\nDigite outro CPF: ')
 
-def editUser(m, n, v):
-    dateUser[int(m) - 1][v - 1] = n
+
+def deleteUser(m):
+    del dataUser[m]
     saveData()
 
 
-def deleteUser(opt):
-    dateUser.pop([opt - 1])
+def editCPF(m, n, v):
+    dataUser[n] = dataUser[m][:]
+    dataUser[m][v - 1] = n
+    deleteUser(m)
+
+
+def editUser(m, n, v):
+    dataUser[m][v - 1] = n
     saveData()
 
 
@@ -153,5 +174,6 @@ def sendEmail():
 
 
 class newUsuario(object):
-    def __init__(self, a, b, c, d, e, f, g, h, i, j):
-        dateUser[len(dateUser)] = [a, b, c, d, e, f, g, h, i, j]
+    def __init__(self, a, b, c, d, e, f, g, h, i, j, l):
+        dataUser[d] = [a, b, c, d, e, f, g, h, i, j, l]
+        saveData()

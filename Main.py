@@ -1,32 +1,34 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import User
 import Veiculos
 
-DB = "DB_User.dat"
 # ############################
 # 		PY RENT A CAR 		##
 # Create by:                ##
 #         Bruno and João    ##
 ###############################
 
-op, cnh, rg = '', '', ''
+op = ''
 
 while op != 10:
-    User.pushData()
-    Veiculos.pushData()
-    print('''/// MENU DE CADASTRAMENTO
-1 - Cadastrar novo cliente
-2 - Consultar cliente existente
-3 - Atualizar cadastro de cliente
-4 - Excluir cadastro de cliente
-\n/// MENU DE LOCAÇÃO
-5 - Alugar veículos
-6 - Devolução de veículos
-7 - Consultar veículos disponíveis
-8 - Consultar registro de emprśtimos efetuados
-9 - Menu de veículos
-\n/// MENU DE HISTÓRICOS
-10 - Consultar históricos da empresa
-\n0 - Sair\n\n''')
+    User.pullData()
+    Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
+    print('/// MENU DE CADASTRAMENTO')
+    print('1 - Cadastrar novo cliente')
+    print('2 - Consultar cliente existente')
+    print('3 - Atualizar cadastro de cliente')
+    print('4 - Excluir cadastro de cliente')
+    print('\n/// MENU DE LOCAÇÃO')
+    print('5 - Alugar veículos')
+    print('6 - Devolução de veículos')
+    print('7 - Consultar veículos disponíveis')
+    print('8 - Consultar registro de emprśtimos efetuados')
+    print('9 - Menu de veículos')
+    print('\n/// MENU DE HISTÓRICOS')
+    print('10 - Consultar históricos da empresa')
+    print('\n0 - Sair\n\n')
 
     op = int(input("// Digite uma opção do menu acima: "))
     if op == 1:
@@ -64,8 +66,7 @@ while op != 10:
         Fone = input("Telefone (xx) xxxxx-xxxx: ")
         User.valFone(Fone)
 
-        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone)
-        User.saveData()
+        User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
     elif op == 2:
 
         while True:
@@ -73,9 +74,8 @@ while op != 10:
             User.search(termo)
 
     elif op == 3:
-        User.showUsers()
-
-        editar = input("Qual cliente quer editar?")
+        editar = input("Digite o CPF do cliente que deseja editar: ")
+        User.checkUserExist(editar)
         print("O que deseja alterar?")
         print("1 - Nome")
         print("2 - Sobrenome")
@@ -129,6 +129,9 @@ while op != 10:
             break
         else:
             print("Opcao invalida!")
+
+
+
     elif op == 4:
         User.showUsers()
         optDel = input("Qual destes quer remover?")
@@ -136,7 +139,7 @@ while op != 10:
     elif op == 9:
         op = ""
         while op != 10:
-            print("MENU DE VEÍCULOS")
+            print("/// MENU DE VEÍCULOS")
             print("1 - Cadastrar veículos")
             print("2 - Editar veículos")
             print("0 - Voltar")
@@ -159,34 +162,37 @@ while op != 10:
                 # Validação em Falta
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
-                Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM)
-                Veiculos.saveData()
+                Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
+                Veiculos.saveData(Veiculos.DB_Veiculos)
 
             elif op == 0:
-                print()
-
+                break
             else:
                 print("OPÇÃO INVÁLIDA!")
 
     elif op == 10:
         op = ""
-        while op != 10:
-            print("MENU DE HISTÓRICOS")
+        while op != 0:
+            Veiculos.pullData(Veiculos.DB_Veiculos_alugados, Veiculos.veiculos_alugados)
+            Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
+            print("///MENU DE HISTÓRICOS")
             print("1 - Consultar histórico das locações efetuadas")
             print("2 - Consultar quais os veículos mais locados")
             print("3 - Consultar os melhores clientes")
             print("4 - Consultar relatórios de locações em um determinado período")
             print("0 - Voltar")
-            op = int(input("Digite uma opção do menu acima: "))
+            op = int(input("\n\nDigite uma opção do menu acima: "))
 
-            if op == 0:
-                print()
-
+            if op == 1:
+                Veiculos.CarsAlugados()
+            elif op == 3:
+                User.bestClients()
+            elif op == 0:
+                break
             else:
                 print("OPÇÃO INVÁLIDA!")
 
     elif op == 0:
         break
-
     else:
         print("OPÇÃO INVÁLIDA!")

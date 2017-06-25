@@ -1,5 +1,5 @@
-import Veiculos
-wdjgfwghfdd
+import User
+
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
 # Ano_carro = input("Ano do carro?")
@@ -125,5 +125,8 @@ wdjgfwghfdd
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 #
 # )
-Veiculos.rentCar()
-Tetstststststststststst
+
+User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+                "0")
+User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+                "0")
