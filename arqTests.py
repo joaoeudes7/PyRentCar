@@ -1,5 +1,5 @@
 import User
-
+import Veiculos
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
 # Ano_carro = input("Ano do carro?")
@@ -125,8 +125,12 @@ import User
 #     nome = input("Nome inválido! Digite um Nome válido: ")
 #
 # )
+#
+# User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+#                 "0")
+# User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
+#                 "0")
 
-User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
-                "0")
-User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
-                "0")
+Veiculos.todayDate()
+Veiculos.nowHour()
+Veiculos.calendarShow()

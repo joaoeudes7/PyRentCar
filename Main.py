@@ -24,7 +24,7 @@ while op != 10:
     print('5 - Alugar veículos')
     print('6 - Devolução de veículos')
     print('7 - Consultar veículos disponíveis')
-    print('8 - Consultar registro de emprśtimos efetuados')
+    print('8 - Consultar registro de empréstimos efetuados')
     print('9 - Menu de veículos')
     print('\n/// MENU DE HISTÓRICOS')
     print('10 - Consultar históricos da empresa')

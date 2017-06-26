@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import re
+from datetime import datetime
+import calendar
 
 dados_Veiculos = {}
 veiculos_alugados = {}
@@ -89,6 +91,19 @@ def valKM(km):
     while bool(re.match('[0-9]{6}', km)) is False:
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
+def todayDate():
+    now = datetime.now()
+    print("%s/%s/%s" %(now.day,now.month,now.year))
+
+def nowHour():
+    now = datetime.now()
+    print("%s:%s:%s" %(now.hour,now.minute,now.second))
+
+def calendarShow():
+    now = datetime.now()
+    cal = calendar.month(now.year, now.month)
+    print("Aqui está o calendário:")
+    print(cal)
 
 class newCar(object):
     def __init__(self, a, b, c, d, e, f, g, h):
