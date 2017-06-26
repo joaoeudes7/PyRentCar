@@ -84,6 +84,8 @@ while op != 10:
         print("6 - RG")
         print("7 - Email")
         print("8 - Habilitação")
+        print("9 - Endereço")
+        print("10 - Telefone")
         print("0 - Voltar")
 
         op = int(input("Qual campo deseja alterar? "))
@@ -124,6 +126,14 @@ while op != 10:
             while User.valOthers(CNH, 10) is False:
                 CNH = input("CNH Inválida!\nDigite outra CNH: ")
             User.editUser(editar, CNH, op)
+        elif op == 9:
+            Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
+            User.valAddress(Endereco)
+            User.editUser(editar, Endereco, op)
+        elif op == 10:
+            Fone = input("Telefone (xx) xxxxx-xxxx: ")
+            User.valFone(Fone)
+            User.editUser(editar, Fone, op)
         elif op == 0:
             break
         else:
@@ -142,6 +152,7 @@ while op != 10:
             print("/// MENU DE VEÍCULOS")
             print("1 - Cadastrar veículos")
             print("2 - Editar veículos")
+            print("3 - Excluir veículos")
             print("0 - Voltar")
             op = int(input("Digite uma opção do menu acima: "))
 
@@ -156,13 +167,59 @@ while op != 10:
                 Veiculos.valPrice(Car_Price)
                 Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
                 Veiculos.valPlate(Car_Plate)
-                # Validação em Falta
                 Car_Renavam = input("Qual o número renavam do veículo? ")
                 Veiculos.valRenaban(Car_Year, Car_Renavam)
-                # Validação em Falta
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
                 Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
+
+            elif op == 2:
+                editar = input("Digite a placa do veículo que deseja modificar cadastro no foramto 'XXX-0000': ")
+                Veiculos.checkCarExist(editar)
+                print("O que deseja alterar?")
+                print("1 - Modelo do veículo")
+                print("2 - Cor do veículo")
+                print("3 - Ano do veículo")
+                print("4 - Preço do aluguel")
+                print("5 - Placa do veículo")
+                print("6 - Renavam do veículo")
+                print("7 - Quilômetros rodados do veículo")
+                print("0 - Voltar")
+
+                op = int(input("Qual campo deseja alterar? "))
+
+                if op == 1:
+                    Car_Model = input("Qual o modelo do veículo? ")
+                    Veiculos.valModel(Car_Model)
+                    Veiculos.carEdit(editar, Car_Model, op)
+                elif op == 2:
+                    Car_Color = input("Qual a cor do veículo? ")
+                    Veiculos.valColor(Car_Color)
+                    Veiculos.carEdit(editar, Car_Color, op)
+                elif op == 3:
+                    Car_Year = input("Qual o ano do veículo? ")
+                    Veiculos.valYear(Car_Year)
+                    Veiculos.carEdit(editar, Car_Year, op)
+                elif op == 4:
+                    Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
+                    Veiculos.valPrice(Car_Price)
+                    Veiculos.carEdit(editar, Car_Price, op)
+                elif op == 5:
+                    Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
+                    Veiculos.valPlate(Car_Plate)
+                    Veiculos.carEdit(editar, Car_Plate, op)
+                elif op == 6:
+                    Car_Renavam = input("Qual o número renavam do veículo? ")
+                    Veiculos.valRenaban(Car_Year, Car_Renavam)
+                    Veiculos.carEdit(editar, Car_Renavam, op)
+                elif op == 7:
+                    Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
+                    Veiculos.valKM(Car_KM)
+                    Veiculos.carEdit(editar, Car_KM, op)
+                elif op == 0:
+                    break
+                else:
+                    print("Opcao invalida!")
 
             elif op == 0:
                 break

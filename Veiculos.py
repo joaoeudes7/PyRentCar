@@ -10,17 +10,22 @@ veiculos_alugados = {}
 DB_Veiculos = "DB_Veiculos.dat"
 DB_Veiculos_alugados = "DB_Veiculos_alugados.dat"
 
+
 def saveData(db):
     conteudo = ''
     with open(db, 'a+') as arquivo:
+        arquivo.seek(0)
+        arquivo.truncate()
         for i in dados_Veiculos:
             for k in range(len(dados_Veiculos[i])):
                 conteudo += str(dados_Veiculos[i][k]) + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
+    arquivo.close()
+
 
 def pullData(db, lista):
-    with open(db, 'r+') as Arquivo:
+    with open(db, 'a+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
@@ -29,6 +34,7 @@ def pullData(db, lista):
     for i in lista:
         print(i, ":", lista[i])
 
+
 def CarsAlugados():
     j = 1
     print("Carros alugados:")
@@ -36,12 +42,14 @@ def CarsAlugados():
     for i in dados_Veiculos:
         print(j, "-", veiculos_alugados[i][0])
         j += 1
+
+
 def showCars():
     j = 1
     print("Carros disponíveis:")
     # Disponível para alugar
     for i in dados_Veiculos:
-        print(j,"-",dados_Veiculos[i][0])
+        print(j, "-", dados_Veiculos[i][0])
         j += 1
 
 
@@ -63,18 +71,22 @@ def search(term):
         if term.upper() in dados_Veiculos[i][0].upper():
             print(dados_Veiculos[i])
 
-#VALIDAÇÕES
+
+# VALIDAÇÕES
 def valModel(m):
     while bool(re.match('[a-zA-Z0-9çãõẽéêíóá .,' ']{2,30}', m)) is False:
         m = input("Modelo de veículo inválido!\nDigite um modelo válido: ")
+
 
 def valColor(c):
     while bool(re.match('[a-zA-Z .' ']{4,8}', c)) is False:
         c = input("Cor inválida!\nDigite uma cor válida: ")
 
+
 def valYear(y):
     while bool(re.match('[1-2][0-9][0-9][0-9]', y)) is False:
         y = input("Ano inválido!\nDigite um ano válido: ")
+
 
 def valPrice(p):
     while bool(re.match('[0-9,.]{6,8}', p)) is False:
@@ -90,17 +102,21 @@ def valRenaban(a, t):
     while bool((int(a) < 2013 and len(t) == 9) or (int(a) >= 2013 and len(t) == 11)) is False:
         t = input("Número renavam inválido!\nDigite um número renavam válido: ")
 
+
 def valKM(km):
     while bool(re.match('[0-9]{6}', km)) is False:
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
+
 def todayDate():
     now = datetime.now()
-    print("%s/%s/%s" %(now.day,now.month,now.year))
+    print("%s/%s/%s" % (now.day, now.month, now.year))
+
 
 def nowHour():
     now = datetime.now()
-    print("%s:%s:%s" %(now.hour,now.minute,now.second))
+    print("%s:%s:%s" % (now.hour, now.minute, now.second))
+
 
 def calendarShow():
     now = datetime.now()
@@ -108,7 +124,19 @@ def calendarShow():
     print("Aqui está o calendário:")
     print(cal)
 
+
 class newCar(object):
     def __init__(self, a, b, c, d, e, f, g, h):
-        dados_Veiculos[len(dados_Veiculos)] = [a, b, c, d, e, f, g, h]
+        dados_Veiculos[e] = [a, b, c, d, e, f, g, h]
         saveData(DB_Veiculos)
+
+
+# Ediçao de cadastro de carros
+def checkCarExist(m):
+    while bool(m not in dados_Veiculos) is True:
+        m = input("A placa do carro não existe nos registros!\nDigite uma placa válida no formato 'XXX-0000': ")
+
+
+def carEdit(m, n, v):
+    dados_Veiculos[m][v - 1] = n
+    saveData(DB_Veiculos)
