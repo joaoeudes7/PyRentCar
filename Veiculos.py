@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import calendar
 import re
 from datetime import datetime
-import calendar
 
 dados_Veiculos = {}
 veiculos_alugados = {}
@@ -20,11 +20,14 @@ def saveData(db):
         arquivo.writelines(conteudo)
 
 def pullData(db, lista):
-    with open(db, 'a+') as Arquivo:
+    with open(db, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
-            lista[len(lista)] = read[:]
+            read[7] = int(read[7])
+            lista[read[4]] = read[:]
+    for i in lista:
+        print(i, ":", lista[i])
 
 def CarsAlugados():
     j = 1

@@ -68,7 +68,6 @@ while op != 10:
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
     elif op == 2:
-
         while True:
             termo = input("Digite o nome do cliente: ")
             User.search(termo)
@@ -139,6 +138,7 @@ while op != 10:
     elif op == 9:
         op = ""
         while op != 10:
+            Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
             print("/// MENU DE VEÍCULOS")
             print("1 - Cadastrar veículos")
             print("2 - Editar veículos")
@@ -154,7 +154,7 @@ while op != 10:
                 Veiculos.valYear(Car_Year)
                 Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
                 Veiculos.valPrice(Car_Price)
-                Car_Plate = input("Qual a placa de veículo no formato 'XXX0000'? ")
+                Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
                 Veiculos.valPlate(Car_Plate)
                 # Validação em Falta
                 Car_Renavam = input("Qual o número renavam do veículo? ")
@@ -163,7 +163,6 @@ while op != 10:
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
                 Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
-                Veiculos.saveData(Veiculos.DB_Veiculos)
 
             elif op == 0:
                 break
