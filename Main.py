@@ -67,6 +67,7 @@ while op != 20:
         User.valFone(Fone)
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
+        print("Cadastro efetuado com sucesso!")
     elif op == 2:
             termo = input("Digite o CPF do cliente que deseja buscar: ")
             User.search(termo)
@@ -180,6 +181,7 @@ while op != 20:
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 Veiculos.valKM(Car_KM)
                 Veiculos.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
+                print("Cadastro efetuado com sucesso!")
 
             elif op == 2:
                 editar = input("Digite a placa do veículo que deseja modificar cadastro no foramto 'XXX-0000': ")
