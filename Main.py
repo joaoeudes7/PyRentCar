@@ -12,7 +12,7 @@ import Veiculos
 
 op = ''
 
-while op != 10:
+while op != 20:
     User.pullData()
     Veiculos.pullData(Veiculos.DB_Veiculos, Veiculos.dados_Veiculos)
     print('/// MENU DE CADASTRAMENTO')
@@ -68,8 +68,7 @@ while op != 10:
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
     elif op == 2:
-        while True:
-            termo = input("Digite o nome do cliente: ")
+            termo = input("Digite o CPF do cliente que deseja buscar: ")
             User.search(termo)
     elif op == 3:
         editar = input("Digite o CPF do cliente que deseja editar: ")
@@ -129,9 +128,7 @@ while op != 10:
             Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
             User.valAddress(Endereco)
             User.editUser(editar, Endereco, op)
-        if op == 10:
-            op = 11
-        elif op == 11:
+        elif op == 10:
             Fone = input("Telefone (xx)xxxxx-xxxx: ")
             User.valFone(Fone)
             User.editUser(editar, Fone, 10)
@@ -156,7 +153,6 @@ while op != 10:
         for i in Veiculos.dados_Veiculos:
             print('\t', j, '-', Veiculos.dados_Veiculos[i][0])
             j += 1
-        voltar = input("Aperte Enter para continuar...")
     elif op == 9:
         op = ""
         while op != 10:
@@ -175,7 +171,7 @@ while op != 10:
                 Veiculos.valColor(Car_Color)
                 Car_Year = input("Qual o ano do veículo? ")
                 Veiculos.valYear(Car_Year)
-                Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
+                Car_Price = input("Qual o preço do veículo no formato '000.00' ou '0.000.00'? ")
                 Veiculos.valPrice(Car_Price)
                 Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
                 Veiculos.valPlate(Car_Plate)
@@ -199,15 +195,15 @@ while op != 10:
                 if op == 1:
                     Car_Color = input("Qual a cor do veículo? ")
                     Veiculos.valColor(Car_Color)
-                    Veiculos.carEdit(editar, Car_Color, op)
+                    Veiculos.carEdit(editar, Car_Color, 2)
                 elif op == 2:
-                    Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
+                    Car_Price = input("Qual o preço do veículo no formato '000.00' ou '0000.00'? ")
                     Veiculos.valPrice(Car_Price)
-                    Veiculos.carEdit(editar, Car_Price, op)
+                    Veiculos.carEdit(editar, Car_Price, 4)
                 elif op == 3:
                     Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                     Veiculos.valKM(Car_KM)
-                    Veiculos.carEdit(editar, Car_KM, op)
+                    Veiculos.carEdit(editar, Car_KM, 7)
                 elif op == 0:
                     break
                 else:
@@ -244,7 +240,10 @@ while op != 10:
                 break
             else:
                 print("OPÇÃO INVÁLIDA!")
+            voltar = input("Aperte Enter para continuar...")
     elif op == 0:
         break
     else:
         print("OPÇÃO INVÁLIDA!")
+    voltar = input("Aperte Enter para continuar...")
+    print("\n"*30)

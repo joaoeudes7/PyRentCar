@@ -16,8 +16,6 @@ def pullData():
             read.pop(len(read) - 1)
             read[10] = int(read[10])
             dataUser[read[3]] = read[:]
-    for i in dataUser:
-        print(i, ":", dataUser[i])
 
 def saveData():
     conteudo = ''
@@ -69,8 +67,7 @@ def valCpf(cpf):
 
 
 def valOthers(variavel, qtd_letras):
-    variavel = re.sub('[a-z,A-Z]', '', variavel)
-    return bool(len(variavel) == qtd_letras)
+    return bool(re.match("[0-9]{"+str(qtd_letras)+"}", variavel))
 
 
 def valAddress(m):
@@ -114,9 +111,10 @@ def bestClients():
 
 # Pesquisa
 def search(term):
-    for i in dataUser:
-        if term.upper() in dataUser[i][0].upper():
-            print(dataUser[i])
+    if term in dataUser:
+        print(dataUser[term])
+    else:
+        print("Usuário não existe!")
 
 
 def showUsers():

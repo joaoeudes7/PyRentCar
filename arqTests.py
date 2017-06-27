@@ -131,6 +131,13 @@ import Veiculos
 # User.newUsuario('Nome_User', 'Sobrenome_User', 'dataN', 'CPF', 'Nome_Mae', 'RG', 'Email', 'CNH', 'Endereco', 'Fone',
 #                 "0")
 
-Veiculos.todayDate()
-Veiculos.nowHour()
-Veiculos.calendarShow()
+# Veiculos.todayDate()
+# Veiculos.nowHour()
+# Veiculos.calendarShow()
+
+# Fone = input("Telefone (xx) xxxxx-xxxx: ")
+# User.valFone(Fone)
+
+RG = input("RG: ")
+while User.valOthers(RG, 9) is False:
+    RG = input("RG Inválido!\nDigite outro RG: ")
