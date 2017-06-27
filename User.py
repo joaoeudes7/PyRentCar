@@ -79,7 +79,7 @@ def valAddress(m):
 
 
 def valFone(m):
-    while bool(re.match('^\([1-9]{2}\) [2-9]{2,3}[0-9]{2}\-[0-9]{4}$', m)) is False:
+    while bool(re.match('^\([1-9]{2}\)[2-9]{2,3}[0-9]{2}\-[0-9]{4}$', m)) is False:
         m = input('Número errado!\nDigite outro número: ')
 
 
@@ -89,7 +89,7 @@ def valEmail(email):
 
 
 def valName(m, n):
-    while bool(re.match('[a-zA-Zãõçóúáéí ]{2,}', m)) is False:
+    while bool(re.match('[^0-9][a-zA-Zãõçóúáéí ]{2,}', m)) is False:
         m = input(n + ' Inválido!\nDigite outro ' + n + ': ')
 
 
@@ -111,6 +111,7 @@ def bestClients():
     print("///Nome do cliente/Quantidade de alugueis:")
     for i in melhoresCli:
         print("\t", i[0], " | ", i[1])
+
 # Pesquisa
 def search(term):
     for i in dataUser:
@@ -119,9 +120,10 @@ def search(term):
 
 
 def showUsers():
+    j = 1
     for i in dataUser:
-        print(i + 1, ' - ', dataUser[i][0], dataUser[i][1])
-
+        print(j, ' - ', dataUser[i][0], dataUser[i][1])
+        j += 1
 # Ediçao de cadastro
 def checkUserExist(m):
     while bool(m not in dataUser) is True:

@@ -25,7 +25,7 @@ def saveData(db):
 
 
 def pullData(db, lista):
-    with open(db, 'a+') as Arquivo:
+    with open(db, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
@@ -33,6 +33,7 @@ def pullData(db, lista):
             lista[read[4]] = read[:]
     for i in lista:
         print(i, ":", lista[i])
+
 
 
 def CarsAlugados():
@@ -139,4 +140,9 @@ def checkCarExist(m):
 
 def carEdit(m, n, v):
     dados_Veiculos[m][v - 1] = n
+    saveData(DB_Veiculos)
+
+
+def deleteCar(m):
+    del dados_Veiculos[m]
     saveData(DB_Veiculos)

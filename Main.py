@@ -63,7 +63,7 @@ while op != 10:
         Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
         User.valAddress(Endereco)
 
-        Fone = input("Telefone (xx) xxxxx-xxxx: ")
+        Fone = input("Telefone (xx)xxxxx-xxxx: ")
         User.valFone(Fone)
 
         User.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
@@ -71,7 +71,6 @@ while op != 10:
         while True:
             termo = input("Digite o nome do cliente: ")
             User.search(termo)
-
     elif op == 3:
         editar = input("Digite o CPF do cliente que deseja editar: ")
         User.checkUserExist(editar)
@@ -130,21 +129,34 @@ while op != 10:
             Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
             User.valAddress(Endereco)
             User.editUser(editar, Endereco, op)
-        elif op == 10:
-            Fone = input("Telefone (xx) xxxxx-xxxx: ")
+        if op == 10:
+            op = 11
+        elif op == 11:
+            Fone = input("Telefone (xx)xxxxx-xxxx: ")
             User.valFone(Fone)
-            User.editUser(editar, Fone, op)
+            User.editUser(editar, Fone, 10)
         elif op == 0:
             break
         else:
             print("Opcao invalida!")
-
-
-
     elif op == 4:
-        User.showUsers()
-        optDel = input("Qual destes quer remover?")
+        optDel = input("Qual o CPF do usuário?")
         User.deleteUser(optDel)
+    elif op == 5:
+        cpfUser = input("Digite o CPF do usuário que deseja alugar o carro: ")
+        plateCar = input("Digite a placa do carro á ser alugado: ")
+        User.dataUser[cpfUser][10] += 1
+        Veiculos.dados_Veiculos[plateCar][7] += 1
+        Veiculos.veiculos_alugados[User.dataUser[cpfUser][4]] = Veiculos.dados_Veiculos[plateCar], 1,
+        Veiculos.dados_Veiculos.pop(plateCar)
+
+        print(Veiculos.veiculos_alugados)
+    elif op == 7:
+        j = 1
+        for i in Veiculos.dados_Veiculos:
+            print('\t', j, '-', Veiculos.dados_Veiculos[i][0])
+            j += 1
+        voltar = input("Aperte Enter para continuar...")
     elif op == 9:
         op = ""
         while op != 10:
@@ -177,42 +189,22 @@ while op != 10:
                 editar = input("Digite a placa do veículo que deseja modificar cadastro no foramto 'XXX-0000': ")
                 Veiculos.checkCarExist(editar)
                 print("O que deseja alterar?")
-                print("1 - Modelo do veículo")
-                print("2 - Cor do veículo")
-                print("3 - Ano do veículo")
-                print("4 - Preço do aluguel")
-                print("5 - Placa do veículo")
-                print("6 - Renavam do veículo")
-                print("7 - Quilômetros rodados do veículo")
+                print("1 - Cor do veículo")
+                print("2 - Preço do aluguel")
+                print("3 - Quilômetros rodados do veículo")
                 print("0 - Voltar")
 
                 op = int(input("Qual campo deseja alterar? "))
 
                 if op == 1:
-                    Car_Model = input("Qual o modelo do veículo? ")
-                    Veiculos.valModel(Car_Model)
-                    Veiculos.carEdit(editar, Car_Model, op)
-                elif op == 2:
                     Car_Color = input("Qual a cor do veículo? ")
                     Veiculos.valColor(Car_Color)
                     Veiculos.carEdit(editar, Car_Color, op)
-                elif op == 3:
-                    Car_Year = input("Qual o ano do veículo? ")
-                    Veiculos.valYear(Car_Year)
-                    Veiculos.carEdit(editar, Car_Year, op)
-                elif op == 4:
+                elif op == 2:
                     Car_Price = input("Qual o preço do veículo no formato '000,00' ou '0.000,00'? ")
                     Veiculos.valPrice(Car_Price)
                     Veiculos.carEdit(editar, Car_Price, op)
-                elif op == 5:
-                    Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
-                    Veiculos.valPlate(Car_Plate)
-                    Veiculos.carEdit(editar, Car_Plate, op)
-                elif op == 6:
-                    Car_Renavam = input("Qual o número renavam do veículo? ")
-                    Veiculos.valRenaban(Car_Year, Car_Renavam)
-                    Veiculos.carEdit(editar, Car_Renavam, op)
-                elif op == 7:
+                elif op == 3:
                     Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                     Veiculos.valKM(Car_KM)
                     Veiculos.carEdit(editar, Car_KM, op)
@@ -221,11 +213,16 @@ while op != 10:
                 else:
                     print("Opcao invalida!")
 
+            elif op == 3:
+                optDel = input(
+                    "Informe a placa do veículo que deseja excluir do banco de dados no formato 'XXX-0000': ")
+                Veiculos.deleteCar(optDel)
+
             elif op == 0:
                 break
+
             else:
                 print("OPÇÃO INVÁLIDA!")
-
     elif op == 10:
         op = ""
         while op != 0:
@@ -247,7 +244,6 @@ while op != 10:
                 break
             else:
                 print("OPÇÃO INVÁLIDA!")
-
     elif op == 0:
         break
     else:
