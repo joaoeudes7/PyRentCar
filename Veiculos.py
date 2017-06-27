@@ -31,6 +31,7 @@ def pullData(db, lista):
             read.pop(len(read) - 1)
             read[7] = int(read[7])
             lista[read[4]] = read[:]
+    print(lista)
 
 
 def CarsAlugados():
@@ -91,8 +92,24 @@ def valPrice(p):
         p = input("Preço inválido!\nDigite um preço válido no formato '000.00' ou '0000.00': ")
 
 
+def OthrsExist(m):
+    return not bool(m in dados_Veiculos)
+
+
+def CheckExist(m, v):
+    return bool(m in v)
+
+
+def valDate(m):
+    m = datetime.strptime(m, "%d/%m/%Y")
+    d = datetime.strptime(todayDate(), "%d/%m/%Y")
+    if m > d:
+        print("Eita poha pegou")
+        return True
+
+
 def valPlate(m):
-    while bool(re.match("^\w{3}-\d{4}$", m)) is False:
+    while bool((re.match("^\w{3}-\d{4}$", m) and OthrsExist(m))) is False:
         m = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
 
 
@@ -106,9 +123,13 @@ def valKM(km):
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
 
+def diff_days(date1, date2):
+    return abs((date1 - date2).days)
+
+
 def todayDate():
     now = datetime.now()
-    print("%s/%s/%s" % (now.day, now.month, now.year))
+    return ("%s/%s/%s" % (now.day, now.month, now.year))
 
 
 def nowHour():

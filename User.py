@@ -16,6 +16,7 @@ def pullData():
             read.pop(len(read) - 1)
             read[10] = int(read[10])
             dataUser[read[3]] = read[:]
+    print(dataUser)
 
 def saveData():
     conteudo = ''
@@ -126,7 +127,6 @@ def showUsers():
 def checkUserExist(m):
     while bool(m not in dataUser) is True:
         m = input('CPF não existe nos registros!\nDigite outro CPF: ')
-
 
 def deleteUser(m):
     del dataUser[m]
