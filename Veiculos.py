@@ -101,10 +101,15 @@ def CheckExist(m, v):
 
 
 def valDate(m):
-    m = datetime.strptime(m, "%d/%m/%Y")
-    d = datetime.strptime(todayDate(), "%d/%m/%Y")
-    if m > d:
-        return True
+    if (re.match('[0-9]{2}/[0-9]{2}/[0-9]{4}', m)):
+        m = datetime.strptime(m, "%d/%m/%Y")
+        d = datetime.strptime(todayDate(), "%d/%m/%Y")
+        if m > d:
+            return True
+        else:
+            return False
+    else:
+        return False
 
 
 def valPlate(m):
@@ -127,7 +132,7 @@ def diff_days(data):
     d = datetime.strptime(data, "%d/%m/%Y")
     dif = d - h
     dif = dif.days
-    return int(dif)
+    return int(dif) + 1
 
 
 def todayDate():
@@ -148,8 +153,8 @@ def calendarShow():
 
 
 class newCar(object):
-    def __init__(self, a, b, c, d, e, f, g, h):
-        dados_Veiculos[e] = [a, b, c, d, e, f, g, h]
+    def __init__(self, a, b, c, d, e, f, g, h, i):
+        dados_Veiculos[e] = [a, b, c, d, e, f, g, h, i]
         saveData(DB_Veiculos)
 
 

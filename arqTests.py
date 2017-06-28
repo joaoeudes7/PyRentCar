@@ -1,8 +1,4 @@
 import Veiculos as V
-import re
-import re
-
-import Veiculos as V
 
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -162,4 +158,4 @@ import Veiculos as V
 # valPlate(m)
 
 data = input("[dd/mm/aaaa]: ")
-V.diff_days(data)
+print(V.valDate(data))
