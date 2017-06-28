@@ -88,8 +88,8 @@ def valYear(y):
 
 
 def valPrice(p):
-    while bool(re.match('[0-9.]{6,8}', p)) is False:
-        p = input("Preço inválido!\nDigite um preço válido no formato '000.00' ou '0000.00': ")
+    while bool(re.match('[0-9]{2,5}', p)) is False:
+        p = input("Preço inválido!\nDigite um preço válido no formato '000' ou '0000': ")
 
 
 def OthrsExist(m):

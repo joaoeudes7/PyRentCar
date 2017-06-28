@@ -191,7 +191,7 @@ while op != '20':
                 V.valColor(Car_Color)
                 Car_Year = input("Qual o ano do veículo? ")
                 V.valYear(Car_Year)
-                Car_Price = input("Qual o preço do veículo no formato '000.00' ou '0.000.00'? ")
+                Car_Price = input("Qual o preço do veículo no formato '000' ou '0000'? ")
                 V.valPrice(Car_Price)
                 Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
                 V.valPlate(Car_Plate)
