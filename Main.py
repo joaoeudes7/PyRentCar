@@ -149,13 +149,14 @@ while op != '20':
         while V.CheckExist(plateCar, V.dados_Veiculos) is False:
             plateCar = input("Placa não encontrada!\nDigite o CPF do usuário que deseja alugar o carro: ")
 
+        V.calendarShow()
         date = input("Data de entrega[dd/mm/aaaa]: ")
         while V.valDate(date) == False:
             date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
         date2 = V.todayDate()
-        price = V.diff_days(date, date2) * V.dados_Veiculos[plateCar][3]
+        price = V.diff_days(date) * int(V.dados_Veiculos[plateCar][3])
 
-        print("O preço do alugel é", price)
+        print("O preço do aluguel é", price)
         cont = input("Continuar?")
 
         if cont.upper() == "S":

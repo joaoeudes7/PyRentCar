@@ -146,17 +146,20 @@ import Veiculos as V
 # while User.valOthers(RG, 9) is False:
 #     RG = input("RG Inválido!\nDigite outro RG: ")
 
-V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+# V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+#
+#
+# def OthrsExist(m):
+#     return not bool(m in V.dados_Veiculos)
+#
+#
+# def valPlate(m):
+#     while bool((re.match("^\w{3}-\d{4}$", m) and OthrsExist(m))) is False:
+#         m = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
+#
+#
+# m = input("Digite a placa do carro no formato 'XXX-0000': ")
+# valPlate(m)
 
-
-def OthrsExist(m):
-    return not bool(m in V.dados_Veiculos)
-
-
-def valPlate(m):
-    while bool((re.match("^\w{3}-\d{4}$", m) and OthrsExist(m))) is False:
-        m = input("Placa do veículo inválida!\nDigite a placa do carro no formato 'XXX-0000': ")
-
-
-m = input("Digite a placa do carro no formato 'XXX-0000': ")
-valPlate(m)
+data = input("[dd/mm/aaaa]: ")
+V.diff_days(data)

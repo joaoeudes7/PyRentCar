@@ -104,7 +104,6 @@ def valDate(m):
     m = datetime.strptime(m, "%d/%m/%Y")
     d = datetime.strptime(todayDate(), "%d/%m/%Y")
     if m > d:
-        print("Eita poha pegou")
         return True
 
 
@@ -123,8 +122,12 @@ def valKM(km):
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
 
-def diff_days(date1, date2):
-    return abs((date1 - date2).days)
+def diff_days(data):
+    h = datetime.now()
+    d = datetime.strptime(data, "%d/%m/%Y")
+    dif = d - h
+    dif = dif.days
+    return int(dif)
 
 
 def todayDate():
