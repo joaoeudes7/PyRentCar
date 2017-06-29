@@ -53,8 +53,8 @@ def menuOp2():
 
 
 def menuOp3():
-    editar = input("Digite o CPF do cliente que deseja editar: ")
-    U.checkUserExist(editar)
+    cpf = input("Digite o CPF do cliente que deseja editar: ")
+    U.checkUserExist(cpf)
     print("O que deseja alterar?")
     print("1 - Nome")
     print("2 - Sobrenome")
@@ -73,47 +73,47 @@ def menuOp3():
     if op == '1':
         Nome_User = input("Digite o novo nome: ")
         U.valName(Nome_User, "Nome")
-        U.editUser(editar, Nome_User, op)
+        U.editUser(cpf, Nome_User, op)
     elif op == '2':
         Sobrenome_User = input("Digite o novo sobrenome: ")
         U.valName(Sobrenome_User, "Sobrenome")
-        U.editUser(editar, Sobrenome_User, op)
+        U.editUser(cpf, Sobrenome_User, op)
     elif op == '3':
         dataN = input("Digite a nova data de nascimento (dd/mm/aaaa): ")
         while U.valDate(dataN) is False:
             dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
-        U.editUser(editar, dataN, op)
+        U.editUser(cpf, dataN, op)
     elif op == '4':
         CPF = input("Digite o novo CPF: ")
         while U.valCpf(CPF) is False:
             CPF = input("CPF Inválido!\nDigite outro CPF: ")
-        U.editUser(editar, CPF, op)
+        U.editUser(cpf, CPF, op)
     elif op == '5':
         Nome_Mae = input("Digite o novo nome da Mãe: ")
         U.valName(Nome_Mae, "Nome")
-        U.editUser(editar, Nome_Mae, op)
+        U.editUser(cpf, Nome_Mae, op)
     elif op == '6':
         RG = input("RG: ")
         while U.valOthers(RG, 9) is False:
             RG = input("RG Inválido!\nDigite outro RG: ")
-        U.editUser(editar, RG, op)
+        U.editUser(cpf, RG, op)
     elif op == '7':
         Email = input("Email:")
         U.valEmail(Email)
-        U.editUser(editar, Email, op)
+        U.editUser(cpf, Email, op)
     elif op == '8':
         CNH = input("CNH: ")
         while U.valOthers(CNH, 10) is False:
             CNH = input("CNH Inválida!\nDigite outra CNH: ")
-        U.editUser(editar, CNH, op)
+        U.editUser(cpf, CNH, op)
     elif op == '9':
         Endereco = input("Endereço, no formato (Rua, Número, Cidade-Estado): ")
         U.valAddress(Endereco)
-        U.editUser(editar, Endereco, op)
+        U.editUser(cpf, Endereco, op)
     elif op == '10':
         Fone = input("Telefone (xx)xxxxx-xxxx: ")
         U.valFone(Fone)
-        U.editUser(editar, Fone, 10)
+        U.editUser(cpf, Fone, 10)
     else:
         print("Opcao invalida!")
 

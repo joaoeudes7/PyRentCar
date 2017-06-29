@@ -138,7 +138,7 @@ def editCPF(m, n, v):
 
 
 def editUser(m, n, v):
-    dataUser[m][v - 1] = n
+    dataUser[m][int(v) - 1] = n
     saveData()
 
 
