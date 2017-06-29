@@ -39,6 +39,8 @@ while op != '20':
         menuOp4()
     elif op == '5':
         menuOp5()
+    elif op == '6':
+        menuOp6()
     elif op == '7':
         menuOp7()
     elif op == '9':

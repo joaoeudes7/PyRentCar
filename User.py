@@ -36,7 +36,7 @@ def cpfExistente(m):
 
 
 def valCpf(cpf):
-    while cpfExistente(cpf) == True:
+    while cpfExistente(cpf) is True:
         cpf = input("CPF já utilizado!\nDigite outro:")
         if len(cpf) != 11:
             return False
@@ -142,17 +142,24 @@ def editUser(m, n, v):
     saveData()
 
 
-def sendEmail():
+def sendEmail(email, cpf, nameCar, price, today, dateReceive, by):
+
     import smtplib
 
     # Informe suas credenciais abaixo.
-    remetente = 'seuemailaqui@gmail.com'
-    senha = 'suasenhaaqui'
+    remetente = "contato.pyrentacar@gmail.com"
+    senha = "Pyrentacar2017"
 
     # Destinatario e informações da mensagem.
-    destinatario = 'email@destinatario.com'
-    assunto = 'Enviando email com python'
-    texto = 'Esse email foi enviado usando python! :)'
+    destinatario = email
+    assunto = 'Confirmação de ' + by
+    if by == "Aluguel":
+        texto = "Olá, " + dataUser[cpf][
+            0] + "\nVocê alugou o veículo " + nameCar + " na data de hoje (" + today + "), com prazo de entrega no dia até " + dateReceive + ".\nCom o valor total de: R$" + str(
+            price) + " reais.\nAgradecemos a preferência."
+    else:
+        texto = "Olá, " + dataUser[cpf][
+            0] + "\nAviso de devoloção do veículo " + nameCar + "!\nAgradecemos a preferência."
 
     # Preparando a mensagem
     msg = '\r\n'.join([
@@ -164,10 +171,10 @@ def sendEmail():
     ])
 
     # Enviando o email SMTP esta configurado para o remetete usar Gmail.
-    server = smtplib.SMTP('smtp.gmail.com:587')
+    server = smtplib.SMTP("smtp.gmail.com:587")
     server.starttls()
     server.login(remetente, senha)
-    server.sendmail(remetente, destinatario, msg)
+    server.sendmail(remetente, destinatario, msg.encode('utf-8'))
     server.quit()
 
 

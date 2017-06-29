@@ -1,9 +1,12 @@
 import User as U
 import Veiculos as V
 
+
 def dados():
     U.pullData()
     V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+    V.pullDataAlugados()
+
 
 def menuOp1():
     Nome_User = input("Nome: ")
@@ -40,7 +43,7 @@ def menuOp1():
     Fone = input("Telefone (xx)xxxxx-xxxx: ")
     U.valFone(Fone)
 
-    U.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, "0")
+    U.newUsuario(Nome_User, Sobrenome_User, dataN, CPF, Nome_Mae, RG, Email, CNH, Endereco, Fone, 0)
     print("Cadastro efetuado com sucesso!")
 
 
@@ -128,25 +131,49 @@ def menuOp5():
     plateCar = input("Digite a placa do carro á ser alugado: ")
     while V.CheckExist(plateCar, V.dados_Veiculos) is False:
         plateCar = input("Placa não encontrada!\nDigite o CPF do usuário que deseja alugar o carro: ")
+    if V.dados_Veiculos[plateCar][8] == 0:
+        print("Veículo não disponível no momento!\n Status: ALUGADO!")
+    else:
+        V.calendarShow()
+        date = input("Data de entrega[dd/mm/aaaa]: ")
+        while V.valDate(date) == False:
+            date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
+        price = V.diff_days(date) * int(V.dados_Veiculos[plateCar][3])
 
-    V.calendarShow()
-    date = input("Data de entrega[dd/mm/aaaa]: ")
-    while V.valDate(date) == False:
-        date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
-    price = V.diff_days(date) * int(V.dados_Veiculos[plateCar][3])
+        print("O preço do aluguel é", price)
+        cont = input("Continuar(S/n)? ")
 
-    print("O preço do aluguel é", price)
-    cont = input("Continuar? (S/n)")
+        if cont.upper() == "S":
+            pay = input("Pagamento á vista(S/n)? ")
 
-    if cont.upper() == "S":
-        pay = input("Pagamento á vista? (S/n)")
-        if pay.upper() == "S":
-            price = 0
-        U.dataUser[cpfUser][10] += 1
-        V.dados_Veiculos[plateCar][7] += 1
-        V.dados_Veiculos[plateCar][8] = False
-        V.veiculos_alugados[U.dataUser[cpfUser][3]] = V.dados_Veiculos[plateCar][4], price
-        print(V.veiculos_alugados)
+            if pay.upper() == "S":
+                price = 0
+
+            U.dataUser[cpfUser][10] += 1
+            V.dados_Veiculos[plateCar][7] += 1
+            V.dados_Veiculos[plateCar][8] -= 1
+            V.veiculos_alugados[plateCar] = U.dataUser[cpfUser][3], price, V.todayDate(), date, plateCar
+            V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
+            print(V.veiculos_alugados)
+
+            email = U.dataUser[cpfUser][6]
+            cpf = U.dataUser[cpfUser][3]
+
+            nameCar = V.dados_Veiculos[plateCar][0]
+            U.sendEmail(email, cpf, nameCar, price, V.todayDate(), date, "Aluguel")
+            V.saveData(V.DB_Veiculos, V.dados_Veiculos)
+
+
+def menuOp6():
+    plateCar = input("Digite a Placa do carro: ")
+    dataDeEntrega = V.veiculos_alugados[plateCar][3]
+    diff = V.diff_days2(dataDeEntrega)
+    if diff >= 1:
+        print("Você irá pagar Juros!\nVocê agora deve: ", V.veiculos_alugados[plateCar][1] * diff)
+        cont = input("Aperte Enter para continuar o pagamento!")
+    V.veiculos_alugados.pop(plateCar)
+    print(V.veiculos_alugados)
+    V.dados_Veiculos[plateCar][8] += 1
 
 
 def menuOp7():
@@ -182,7 +209,7 @@ def menuOp9():
             V.valRenaban(Car_Year, Car_Renavam)
             Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
             V.valKM(Car_KM)
-            V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0,1)
+            V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0, 1)
             print("Cadastro efetuado com sucesso!")
 
         elif op == '2':

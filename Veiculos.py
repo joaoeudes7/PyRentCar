@@ -11,14 +11,14 @@ DB_Veiculos = "DB_Veiculos.dat"
 DB_Veiculos_alugados = "DB_Veiculos_alugados.dat"
 
 
-def saveData(db):
+def saveData(db, lista):
     conteudo = ''
     with open(db, 'a+') as arquivo:
         arquivo.seek(0)
         arquivo.truncate()
-        for i in dados_Veiculos:
-            for k in range(len(dados_Veiculos[i])):
-                conteudo += str(dados_Veiculos[i][k]) + '|'
+        for i in lista:
+            for k in range(len(lista[i])):
+                conteudo += str(lista[i][k]) + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
     arquivo.close()
@@ -34,6 +34,14 @@ def pullData(db, lista):
             lista[read[4]] = read[:]
     print(lista)
 
+
+def pullDataAlugados():
+    with open(DB_Veiculos_alugados, 'r+') as Arquivo:
+        for k in Arquivo:
+            read = k.split('|')
+            read.pop(len(read) - 1)
+            veiculos_alugados[read[4]] = read[:]
+    print(veiculos_alugados)
 
 def CarsAlugados():
     j = 1
@@ -128,23 +136,25 @@ def valKM(km):
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
 
-def diff_days(data):
-    h = datetime.now()
-    d = datetime.strptime(data, "%d/%m/%Y")
-    dif = d - h
+def diff_days2(data):
+    data2 = datetime.now().date()
+    data = datetime.strptime(data, "%d/%m/%Y").date()
+    dif = data2 - data
     dif = dif.days
-    return int(dif) + 1
+    return int(dif)
+
+
+def diff_days(data):
+    data2 = datetime.now().date()
+    data = datetime.strptime(data, "%d/%m/%Y").date()
+    dif = data - data2
+    dif = dif.days
+    return int(dif)
 
 
 def todayDate():
     now = datetime.now()
     return ("%s/%s/%s" % (now.day, now.month, now.year))
-
-
-def nowHour():
-    now = datetime.now()
-    print("%s:%s:%s" % (now.hour, now.minute, now.second))
-
 
 def calendarShow():
     now = datetime.now()
@@ -156,7 +166,7 @@ def calendarShow():
 class newCar(object):
     def __init__(self, a, b, c, d, e, f, g, h, i):
         dados_Veiculos[e] = [a, b, c, d, e, f, g, h, i]
-        saveData(DB_Veiculos)
+        saveData(DB_Veiculos, dados_Veiculos)
 
 
 # Ediçao de cadastro de carros
@@ -167,9 +177,9 @@ def checkCarExist(m):
 
 def carEdit(m, n, v):
     dados_Veiculos[m][v - 1] = n
-    saveData(DB_Veiculos)
+    saveData(DB_Veiculos, dados_Veiculos)
 
 
 def deleteCar(m):
     del dados_Veiculos[m]
-    saveData(DB_Veiculos)
+    saveData(DB_Veiculos, dados_Veiculos)
