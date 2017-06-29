@@ -1,6 +1,9 @@
 import User as U
 import Veiculos as V
 
+def dados():
+    U.pullData()
+    V.pullData(V.DB_Veiculos, V.dados_Veiculos)
 
 def menuOp1():
     Nome_User = input("Nome: ")
@@ -14,7 +17,8 @@ def menuOp1():
         dataN = input("Data inválida!\nDigite a data de nascimento no formato (dd/mm/aaaa): ")
 
     CPF = input("CPF: ")
-    U.valCpf(CPF)
+    while not U.valCpf(CPF):
+        CPF = input("CPF Inválido!\nDigite outro CPF: ")
 
     Nome_Mae = input("Nome da Mãe: ")
     U.valName(Nome_Mae, "Nome")
@@ -112,7 +116,7 @@ def menuOp3():
 
 
 def menuOp4():
-    optDel = input("Qual o CPF do usuário?")
+    optDel = input("Informe o CPF do usuário que deseja excluir do nosso banco de dados: ")
     U.deleteUser(optDel)
 
 
@@ -129,11 +133,10 @@ def menuOp5():
     date = input("Data de entrega[dd/mm/aaaa]: ")
     while V.valDate(date) == False:
         date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
-    date2 = V.todayDate()
     price = V.diff_days(date) * int(V.dados_Veiculos[plateCar][3])
 
     print("O preço do aluguel é", price)
-    cont = input("Continuar?")
+    cont = input("Continuar? (S/n)")
 
     if cont.upper() == "S":
         pay = input("Pagamento á vista? (S/n)")
@@ -143,7 +146,6 @@ def menuOp5():
         V.dados_Veiculos[plateCar][7] += 1
         V.dados_Veiculos[plateCar][8] = False
         V.veiculos_alugados[U.dataUser[cpfUser][3]] = V.dados_Veiculos[plateCar][4], price
-        V.dados_Veiculos.pop(plateCar)
         print(V.veiculos_alugados)
 
 
@@ -180,7 +182,7 @@ def menuOp9():
             V.valRenaban(Car_Year, Car_Renavam)
             Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
             V.valKM(Car_KM)
-            V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0)
+            V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0,1)
             print("Cadastro efetuado com sucesso!")
 
         elif op == '2':
@@ -216,7 +218,7 @@ def menuOp9():
                 "Informe a placa do veículo que deseja excluir do banco de dados no formato 'XXX-0000': ")
             V.deleteCar(optDel)
 
-        elif op == '4':
+        elif op == '0':
             break
 
         else:

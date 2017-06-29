@@ -38,33 +38,31 @@ def cpfExistente(m):
 def valCpf(cpf):
     while cpfExistente(cpf) == True:
         cpf = input("CPF já utilizado!\nDigite outro:")
-    cpf = list(cpf)
-    for a in range(len(cpf)):
-        cpf[a] = int(cpf[a])
-
-    mult = [10, 9, 8, 7, 6, 5, 4, 3, 2]
-    mult2 = [11] + mult
-
-    soma = 0
-    soma2 = 0
-
-    for a in range(len(mult)):
-        soma += cpf[a] * mult[a]
-    d1 = 11 - (soma % 11)
-    if d1 == 10 or d1 == 11:
-        d1 = 0
-    cpf.append(d1)
-
-    for a in range(len(mult2)):
-        soma2 += cpf[a] * mult2[a]
-    d2 = 11 - (soma2 % 11)
-
-    if d2 == 10 or d2 == 11:
-        d2 = 0
-    cpf.append(d2)
-
-    while bool(d1 == cpf[9] and d2 == cpf[10]) is False:
-        cpf = input("CPF Inválido!\nDigite outro CPF: ")
+        if len(cpf) != 11:
+            return False
+        else:
+            if not re.match("[0-9]", cpf):
+                return False
+            cpf = list(cpf)
+            for a in range(len(cpf)):
+                cpf[a] = int(cpf[a])
+            mult = [10, 9, 8, 7, 6, 5, 4, 3, 2]
+            mult2 = [11] + mult
+            soma = 0
+            soma2 = 0
+            for a in range(len(mult)):
+                soma += cpf[a] * mult[a]
+            d1 = 11 - (soma % 11)
+            if d1 == 10 or d1 == 11:
+                d1 = 0
+            cpf.append(d1)
+            for a in range(len(mult2)):
+                soma2 += cpf[a] * mult2[a]
+            d2 = 11 - (soma2 % 11)
+            if d2 == 10 or d2 == 11:
+                d2 = 0
+            cpf.append(d2)
+            return bool(d1 == cpf[9] and d2 == cpf[10])
 
 
 def valOthers(variavel, qtd_letras):
@@ -131,7 +129,7 @@ def checkUserExist(m):
 def deleteUser(m):
     del dataUser[m]
     saveData()
-
+    print("Cadastro excluído com sucesso!")
 
 def editCPF(m, n, v):
     dataUser[n] = dataUser[m][:]

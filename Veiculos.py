@@ -28,8 +28,9 @@ def pullData(db, lista):
     with open(db, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
-            read.pop(len(read) - 1)
             read[7] = int(read[7])
+            read[8] = int(read[8])
+            read.pop(len(read) - 1)
             lista[read[4]] = read[:]
     print(lista)
 
@@ -123,7 +124,7 @@ def valRenaban(a, t):
 
 
 def valKM(km):
-    while bool(re.match('[0-9]{6}', km)) is False:
+    while bool(re.match('[0-9]{1,6}', km)) is False:
         km = input("Quilometragem inválida!\nDigite uma quilometragem válida no formato '000000': ")
 
 

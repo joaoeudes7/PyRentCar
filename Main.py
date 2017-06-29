@@ -7,13 +7,12 @@ from functions import *
 # 		PY RENT A CAR 		##
 # Create by:                ##
 #         Bruno and João    ##
-###############################
+##############################
 
 op = ''
 
 while op != '20':
-    U.pullData()
-    V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+    dados()
     print('/// MENU DE CADASTRAMENTO')
     print('1 - Cadastrar novo cliente')
     print('2 - Consultar cliente existente')
