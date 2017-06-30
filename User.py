@@ -16,7 +16,6 @@ def pullData():
             read.pop(len(read) - 1)
             read[10] = int(read[10])
             dataUser[read[3]] = read[:]
-    print(dataUser)
 
 def saveData():
     conteudo = ''
@@ -155,7 +154,7 @@ def sendEmail(email, cpf, nameCar, price, today, dateReceive, by):
     assunto = 'Confirmação de ' + by
     if by == "Aluguel":
         texto = "Olá, " + dataUser[cpf][
-            0] + "\nVocê alugou o veículo " + nameCar + " na data de hoje (" + today + "), com prazo de entrega no dia até " + dateReceive + ".\nCom o valor total de: R$" + str(
+            0] + "\nVocê alugou o veículo " + nameCar + " na data de hoje (" + today + "), com prazo de entrega até o dia " + dateReceive + ".\nValor a ser pago na devolução do veículo: R$" + str(
             price) + " reais.\nAgradecemos a preferência."
     else:
         texto = "Olá, " + dataUser[cpf][
@@ -169,14 +168,15 @@ def sendEmail(email, cpf, nameCar, price, today, dateReceive, by):
         '',
         '%s' % texto
     ])
-
-    # Enviando o email SMTP esta configurado para o remetete usar Gmail.
-    server = smtplib.SMTP("smtp.gmail.com:587")
-    server.starttls()
-    server.login(remetente, senha)
-    server.sendmail(remetente, destinatario, msg.encode('utf-8'))
-    server.quit()
-
+    try:
+        # Enviando o email SMTP esta configurado para o remetete usar Gmail.
+        server = smtplib.SMTP("smtp.gmail.com:587")
+        server.starttls()
+        server.login(remetente, senha)
+        server.sendmail(remetente, destinatario, msg.encode('utf-8'))
+        server.quit()
+    except:
+        print("Erro ao enviar o email!\nVerifique sua conexão com a internet ou o email do usuário se está correto!")
 
 class newUsuario(object):
     def __init__(self, a, b, c, d, e, f, g, h, i, j, l):

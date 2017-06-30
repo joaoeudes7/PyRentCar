@@ -117,7 +117,6 @@ def menuOp3():
     else:
         print("Opcao invalida!")
 
-
 def menuOp4():
     optDel = input("Informe o CPF do usuário que deseja excluir do nosso banco de dados: ")
     U.deleteUser(optDel)
@@ -154,33 +153,45 @@ def menuOp5():
             V.dados_Veiculos[plateCar][8] -= 1
             V.veiculos_alugados[plateCar] = U.dataUser[cpfUser][3], price, V.todayDate(), date, plateCar
             V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
-            print(V.veiculos_alugados)
+            U.saveData()
 
             email = U.dataUser[cpfUser][6]
             cpf = U.dataUser[cpfUser][3]
-
             nameCar = V.dados_Veiculos[plateCar][0]
+            print("Enviando e-mail de confirmação...")
             U.sendEmail(email, cpf, nameCar, price, V.todayDate(), date, "Aluguel")
             V.saveData(V.DB_Veiculos, V.dados_Veiculos)
+            print("E-mail enviado!")
 
 
 def menuOp6():
-    plateCar = input("Digite a Placa do carro: ")
+    plateCar = input("Digite a placa do carro: ")
     dataDeEntrega = V.veiculos_alugados[plateCar][3]
     diff = V.diff_days2(dataDeEntrega)
     if diff >= 1:
         print("Você irá pagar Juros!\nVocê agora deve: ", V.veiculos_alugados[plateCar][1] * diff)
-        cont = input("Aperte Enter para continuar o pagamento!")
+        cont = input("Aperte Enter para confirmar o pagamento e a devolução!")
+    cpf = V.veiculos_alugados[plateCar][0]
+    email = U.dataUser[cpf][6]
+    nameCar = V.dados_Veiculos[plateCar][0]
     V.veiculos_alugados.pop(plateCar)
-    print(V.veiculos_alugados)
     V.dados_Veiculos[plateCar][8] += 1
-
+    V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
+    V.saveData(V.DB_Veiculos, V.dados_Veiculos)
+    print(nameCar,"devolvido.")
+    print("Enviando e-mail de confirmação...")
+    U.sendEmail(email, cpf, nameCar, "", "", "", "Devolução")
+    print("E-mail enviado!")
+    cont = input("Aperte Enter para confirmar a devolução!")
 
 def menuOp7():
     j = 1
     for i in V.dados_Veiculos:
-        print('\t', j, '-', V.dados_Veiculos[i][0])
-        j += 1
+        if V.dados_Veiculos[i][8] != 0:
+            print('\t', j, '-', V.dados_Veiculos[i][0])
+            j += 1
+        else:
+            print("Não há veículos disponíveis!")
 
 
 def menuOp9():
@@ -254,20 +265,18 @@ def menuOp9():
 
 def menuOp10():
     op = ""
-    while op != '0':
-        V.pullData(V.DB_Veiculos_alugados, V.veiculos_alugados)
-        V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+    while op != '6':
+        dados()
         print("///MENU DE HISTÓRICOS")
-        print("1 - Consultar histórico das locações efetuadas")
-        print("2 - Consultar quais os veículos mais locados")
-        print("3 - Consultar os melhores clientes")
-        print("4 - Consultar relatórios de locações em um determinado período")
+        print("1 - Consultar quais os veículos mais locados")
+        print("2 - Consultar os melhores clientes")
+        print("3 - Consultar relatórios de locações em um determinado período")
         print("0 - Voltar")
-        op = int(input("\n\nDigite uma opção do menu acima: "))
+        op = input("\n\nDigite uma opção do menu acima: ")
 
         if op == '1':
-            V.CarsAlugados()
-        elif op == '3':
+            V.bestCars()
+        elif op == '2':
             U.bestClients()
         elif op == '0':
             break

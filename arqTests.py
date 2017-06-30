@@ -1,4 +1,5 @@
 import Veiculos as V
+import User as U
 import re
 # Modelo_carro = input("Qual o modelo do Carro?")
 # Cor_carro = input("Qual a cor?")
@@ -161,6 +162,8 @@ import re
 # print(V.valDate(data))
 
 def valCpf(cpf):
+    while U.cpfExistente(cpf) is True:
+
         if len(cpf) != 11:
             return False
         else:

@@ -32,7 +32,6 @@ def pullData(db, lista):
             read[8] = int(read[8])
             read.pop(len(read) - 1)
             lista[read[4]] = read[:]
-    print(lista)
 
 
 def pullDataAlugados():
@@ -41,7 +40,6 @@ def pullDataAlugados():
             read = k.split('|')
             read.pop(len(read) - 1)
             veiculos_alugados[read[4]] = read[:]
-    print(veiculos_alugados)
 
 def CarsAlugados():
     j = 1
@@ -183,3 +181,14 @@ def carEdit(m, n, v):
 def deleteCar(m):
     del dados_Veiculos[m]
     saveData(DB_Veiculos, dados_Veiculos)
+
+def bestCars():
+    melhoresCli = {}
+    for i in dados_Veiculos:
+        if dados_Veiculos[i][7] != 0:
+            melhoresCli[len(melhoresCli)] = dados_Veiculos[i][0], dados_Veiculos[i][7]
+    melhoresCli = sorted(melhoresCli.values(), reverse=True)[:]
+
+    print("///Nome do carro/Quantidade de alugueis:")
+    for i in melhoresCli:
+        print("\t", i[0], " | ", i[1])
