@@ -1,11 +1,20 @@
 import User as U
 import Veiculos as V
 
+DB = ["DB_Veiculos.dat", "DB_Veiculos_alugados.dat", "DB_Historico.dat", "DB_User.dat"]
 
-def dados():
+
+def creatFileIfNotExist():
+    for i in DB:
+        file = open(i, 'a+').close()
+
+
+def dataPullAll():
+    creatFileIfNotExist()
     U.pullData()
-    V.pullData(V.DB_Veiculos, V.dados_Veiculos)
+    V.pullData()
     V.pullDataAlugados()
+    V.pullDataHistorico()
 
 
 def menuOp1():
@@ -116,6 +125,8 @@ def menuOp3():
         U.editUser(cpf, Fone, 10)
     else:
         print("Opcao invalida!")
+    print("\nModificado com sucesso!\n")
+
 
 def menuOp4():
     optDel = input("Informe o CPF do usuário que deseja excluir do nosso banco de dados: ")
@@ -127,17 +138,22 @@ def menuOp5():
     while V.CheckExist(cpfUser, U.dataUser) is False:
         cpfUser = input("CPF não encontrado!\nDigite o CPF do usuário que deseja alugar o carro: ")
 
+    V.showCars()
+
     plateCar = input("Digite a placa do carro á ser alugado: ")
     while V.CheckExist(plateCar, V.dados_Veiculos) is False:
         plateCar = input("Placa não encontrada!\nDigite o CPF do usuário que deseja alugar o carro: ")
+
     if V.dados_Veiculos[plateCar][8] == 0:
         print("Veículo não disponível no momento!\n Status: ALUGADO!")
     else:
         V.calendarShow()
-        date = input("Data de entrega[dd/mm/aaaa]: ")
-        while V.valDate(date) == False:
+
+        dateDevolution = input("Data de entrega[dd/mm/aaaa]: ")
+        while V.valDate(dateDevolution) == False:
             date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
-        price = V.diff_days(date) * int(V.dados_Veiculos[plateCar][3])
+
+        price = V.diff_days(dateDevolution) * int(V.dados_Veiculos[plateCar][3])
 
         print("O preço do aluguel é", price)
         cont = input("Continuar(S/n)? ")
@@ -149,17 +165,14 @@ def menuOp5():
                 price = 0
 
             U.dataUser[cpfUser][10] += 1
-            V.dados_Veiculos[plateCar][7] += 1
-            V.dados_Veiculos[plateCar][8] -= 1
-            V.veiculos_alugados[plateCar] = U.dataUser[cpfUser][3], price, V.todayDate(), date, plateCar
-            V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
+            V.rentCar(plateCar, cpfUser, price, dateDevolution)
             U.saveData()
 
             email = U.dataUser[cpfUser][6]
             cpf = U.dataUser[cpfUser][3]
             nameCar = V.dados_Veiculos[plateCar][0]
             print("Enviando e-mail de confirmação...")
-            U.sendEmail(email, cpf, nameCar, price, V.todayDate(), date, "Aluguel")
+            U.sendEmail(email, cpf, nameCar, price, V.todayDate(), dateDevolution, "Aluguel")
             V.saveData(V.DB_Veiculos, V.dados_Veiculos)
             print("E-mail enviado!")
 
@@ -168,9 +181,11 @@ def menuOp6():
     plateCar = input("Digite a placa do carro: ")
     dataDeEntrega = V.veiculos_alugados[plateCar][3]
     diff = V.diff_days2(dataDeEntrega)
+
     if diff >= 1:
         print("Você irá pagar Juros!\nVocê agora deve: ", V.veiculos_alugados[plateCar][1] * diff)
         cont = input("Aperte Enter para confirmar o pagamento e a devolução!")
+
     cpf = V.veiculos_alugados[plateCar][0]
     email = U.dataUser[cpf][6]
     nameCar = V.dados_Veiculos[plateCar][0]
@@ -178,11 +193,12 @@ def menuOp6():
     V.dados_Veiculos[plateCar][8] += 1
     V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
     V.saveData(V.DB_Veiculos, V.dados_Veiculos)
-    print(nameCar,"devolvido.")
+    print(nameCar, "devolvido.")
     print("Enviando e-mail de confirmação...")
     U.sendEmail(email, cpf, nameCar, "", "", "", "Devolução")
     print("E-mail enviado!")
     cont = input("Aperte Enter para confirmar a devolução!")
+
 
 def menuOp7():
     j = 1
@@ -195,91 +211,67 @@ def menuOp7():
 
 
 def menuOp9():
-    op = ""
-    while op != '10':
-        V.pullData(V.DB_Veiculos, V.dados_Veiculos)
-        print("/// MENU DE VEÍCULOS")
-        print("1 - Cadastrar veículos")
-        print("2 - Editar veículos")
-        print("3 - Excluir veículos")
+    V.pullData()
+    op = input("Digite uma opção do menu acima: ")
+
+    if op == '1':
+        Car_Model = input("Qual o modelo do veículo? ")
+        V.valModel(Car_Model)
+        Car_Color = input("Qual a cor do veículo? ")
+        V.valColor(Car_Color)
+        Car_Year = input("Qual o ano do veículo? ")
+        V.valYear(Car_Year)
+        Car_Price = input("Qual o preço do veículo no formato '000' ou '0000'? ")
+        V.valPrice(Car_Price)
+        Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
+        V.valPlate(Car_Plate)
+        Car_Renavam = input("Qual o número renavam do veículo? ")
+        V.valRenaban(Car_Year, Car_Renavam)
+        Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
+        V.valKM(Car_KM)
+        V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0, 1)
+        print("Cadastro efetuado com sucesso!")
+
+    elif op == '2':
+        editar = input("Digite a placa do veículo que deseja modificar cadastro no foramto 'XXX-0000': ")
+        V.checkCarExist(editar)
+        print("O que deseja alterar?")
+        print("1 - Cor do veículo")
+        print("2 - Preço do aluguel")
+        print("3 - Quilômetros rodados do veículo")
         print("0 - Voltar")
-        op = input("Digite uma opção do menu acima: ")
+        while op != '10':
+            op = input("Qual campo deseja alterar? ")
 
-        if op == '1':
-            Car_Model = input("Qual o modelo do veículo? ")
-            V.valModel(Car_Model)
-            Car_Color = input("Qual a cor do veículo? ")
-            V.valColor(Car_Color)
-            Car_Year = input("Qual o ano do veículo? ")
-            V.valYear(Car_Year)
-            Car_Price = input("Qual o preço do veículo no formato '000' ou '0000'? ")
-            V.valPrice(Car_Price)
-            Car_Plate = input("Qual a placa de veículo no formato 'XXX-0000'? ")
-            V.valPlate(Car_Plate)
-            Car_Renavam = input("Qual o número renavam do veículo? ")
-            V.valRenaban(Car_Year, Car_Renavam)
-            Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
-            V.valKM(Car_KM)
-            V.newCar(Car_Model, Car_Color, Car_Year, Car_Price, Car_Plate, Car_Renavam, Car_KM, 0, 1)
-            print("Cadastro efetuado com sucesso!")
-
-        elif op == '2':
-            editar = input("Digite a placa do veículo que deseja modificar cadastro no foramto 'XXX-0000': ")
-            V.checkCarExist(editar)
-            print("O que deseja alterar?")
-            print("1 - Cor do veículo")
-            print("2 - Preço do aluguel")
-            print("3 - Quilômetros rodados do veículo")
-            print("0 - Voltar")
-
-            op = int(input("Qual campo deseja alterar? "))
-
-            if op == 1:
+            if op == "1":
                 Car_Color = input("Qual a cor do veículo? ")
                 V.valColor(Car_Color)
                 V.carEdit(editar, Car_Color, 2)
-            elif op == 2:
+            elif op == "2":
                 Car_Price = input("Qual o preço do veículo no formato '000.00' ou '0000.00'? ")
                 V.valPrice(Car_Price)
                 V.carEdit(editar, Car_Price, 4)
-            elif op == 3:
+            elif op == "3":
                 Car_KM = input("Digite os quilômetros rodados do veículo no formato '000000': ")
                 V.valKM(Car_KM)
                 V.carEdit(editar, Car_KM, 7)
-            elif op == 0:
+            elif op == "0":
                 break
-            else:
-                print("Opcao invalida!")
-
-        elif op == '3':
-            optDel = input(
-                "Informe a placa do veículo que deseja excluir do banco de dados no formato 'XXX-0000': ")
-            V.deleteCar(optDel)
-
-        elif op == '0':
-            break
-
-        else:
-            print("OPÇÃO INVÁLIDA!")
 
 
 def menuOp10():
     op = ""
     while op != '6':
-        dados()
-        print("///MENU DE HISTÓRICOS")
-        print("1 - Consultar quais os veículos mais locados")
-        print("2 - Consultar os melhores clientes")
-        print("3 - Consultar relatórios de locações em um determinado período")
-        print("0 - Voltar")
+        dataPullAll()
         op = input("\n\nDigite uma opção do menu acima: ")
 
         if op == '1':
             V.bestCars()
         elif op == '2':
             U.bestClients()
+        elif op == '3':
+            V.showHistoric()
         elif op == '0':
             break
         else:
             print("OPÇÃO INVÁLIDA!")
-        voltar = input("Aperte Enter para continuar...")

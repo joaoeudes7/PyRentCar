@@ -27,7 +27,6 @@ def saveData():
                 conteudo += str(dataUser[i][k]) + '|'
             conteudo += '\n'
         arquivo.writelines(conteudo)
-    arquivo.close()
 
 # Validando
 def cpfExistente(m):

@@ -12,7 +12,7 @@ from functions import *
 op = ''
 
 while op != '20':
-    dados()
+    dataPullAll()
     print('/// MENU DE CADASTRAMENTO')
     print('1 - Cadastrar novo cliente')
     print('2 - Consultar cliente existente')
@@ -44,12 +44,25 @@ while op != '20':
     elif op == '7':
         menuOp7()
     elif op == '9':
+        op = ""
+        print("/// MENU DE VEÍCULOS")
+        print("1 - Cadastrar veículos")
+        print("2 - Editar veículos")
+        print("3 - Excluir veículos")
+        print("0 - Voltar")
         menuOp9()
     elif op == '10':
+        op = ""
+        dataPullAll()
+        print("///MENU DE HISTÓRICOS")
+        print("1 - Consultar quais os veículos mais locados")
+        print("2 - Consultar os melhores clientes")
+        print("3 - Consultar relatórios de locações em um determinado período")
+        print("0 - Voltar")
         menuOp10()
+        voltar = input("Aperte Enter para continuar...")
     elif op == '0':
         break
     else:
         print("OPÇÃO INVÁLIDA!")
-    voltar = input("Aperte Enter para continuar...")
     print("\n" * 30)
