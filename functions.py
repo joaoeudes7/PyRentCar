@@ -142,7 +142,7 @@ def menuOp5():
 
     plateCar = input("Digite a placa do carro á ser alugado: ")
     while V.CheckExist(plateCar, V.dados_Veiculos) is False:
-        plateCar = input("Placa não encontrada!\nDigite o CPF do usuário que deseja alugar o carro: ")
+        plateCar = input("Placa não encontrada!\nDigite uma Placa válida: ")
 
     if V.dados_Veiculos[plateCar][8] == 0:
         print("Veículo não disponível no momento!\n Status: ALUGADO!")
@@ -151,7 +151,7 @@ def menuOp5():
 
         dateDevolution = input("Data de entrega[dd/mm/aaaa]: ")
         while V.valDate(dateDevolution) == False:
-            date = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
+            dateDevolution = input("Data Inválida! Data de entrega[dd/mm/aaaa]: ")
 
         price = V.diff_days(dateDevolution) * int(V.dados_Veiculos[plateCar][3])
 
@@ -165,7 +165,14 @@ def menuOp5():
                 price = 0
 
             U.dataUser[cpfUser][10] += 1
-            V.rentCar(plateCar, cpfUser, price, dateDevolution)
+            V.dados_Veiculos[plateCar][7] += 1
+            V.dados_Veiculos[plateCar][8] -= 1
+            V.veiculos_alugados[plateCar] = cpfUser, price, V.todayDate(), dateDevolution, plateCar
+            V.historico = V.veiculos_alugados
+
+            V.saveData(V.DB_Veiculos_alugados, V.veiculos_alugados)
+            V.saveData(V.DB_Historico, V.historico)
+
             U.saveData()
 
             email = U.dataUser[cpfUser][6]
@@ -175,6 +182,7 @@ def menuOp5():
             U.sendEmail(email, cpf, nameCar, price, V.todayDate(), dateDevolution, "Aluguel")
             V.saveData(V.DB_Veiculos, V.dados_Veiculos)
             print("E-mail enviado!")
+            cont= input("Aperte Enter para continuar...")
 
 
 def menuOp6():
@@ -204,11 +212,16 @@ def menuOp7():
     j = 1
     for i in V.dados_Veiculos:
         if V.dados_Veiculos[i][8] != 0:
-            print('\t', j, '-', V.dados_Veiculos[i][0])
+            print('\t', j, '-', V.dados_Veiculos[i][0],"- DISPONÍVEL")
             j += 1
         else:
-            print("Não há veículos disponíveis!")
+            print('\t', j, '-', V.dados_Veiculos[i][0],"- INDISPONÍVEL")
+            j += 1
 
+def menuOp8():
+    for i in V.veiculos_alugados:
+        placa = V.veiculos_alugados[i][4]
+        print("-",V.dados_Veiculos[placa][0])
 
 def menuOp9():
     V.pullData()
@@ -270,8 +283,10 @@ def menuOp10():
         elif op == '2':
             U.bestClients()
         elif op == '3':
-            V.showHistoric()
+            date = input("Digite uma data de pesquisa inicial [dd/mm/aaaa]: ")
+            V.showHistoric(date)
         elif op == '0':
             break
         else:
             print("OPÇÃO INVÁLIDA!")
+        break

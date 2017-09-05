@@ -43,6 +43,8 @@ while op != '20':
         menuOp6()
     elif op == '7':
         menuOp7()
+    elif op == '8':
+        menuOp8()
     elif op == '9':
         op = ""
         print("/// MENU DE VEÍCULOS")
@@ -60,9 +62,9 @@ while op != '20':
         print("3 - Consultar relatórios de locações em um determinado período")
         print("0 - Voltar")
         menuOp10()
-        voltar = input("Aperte Enter para continuar...")
     elif op == '0':
         break
     else:
         print("OPÇÃO INVÁLIDA!")
+    cont = input("Aperte Enter para continuar")
     print("\n" * 30)

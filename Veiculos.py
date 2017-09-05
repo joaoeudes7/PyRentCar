@@ -45,7 +45,7 @@ def pullDataAlugados():
 
 
 def pullDataHistorico():
-    with open(DB_Veiculos, 'r+') as Arquivo:
+    with open(DB_Historico, 'r+') as Arquivo:
         for k in Arquivo:
             read = k.split('|')
             read.pop(len(read) - 1)
@@ -67,24 +67,16 @@ def showCars():
     # Disponível para alugar
     for i in dados_Veiculos:
         if dados_Veiculos[i][8] == 1:
-            print(j, "-", dados_Veiculos[i][0], "- R$: ", dados_Veiculos[i][3], "- Placa: ", dados_Veiculos[i][4])
+            print(j, "-", dados_Veiculos[i][0], "| R$: ", dados_Veiculos[i][3], "| Placa: ", dados_Veiculos[i][4])
             j += 1
 
+def showHistoric(date):
 
-def rentCar(plateCar, cpfUser, price, date):
-    dados_Veiculos[plateCar][7] += 1
-    dados_Veiculos[plateCar][8] -= 1
-    veiculos_alugados[plateCar] = cpfUser, price, todayDate(), date, plateCar
-    historico = veiculos_alugados[:]
-
-    saveData(DB_Veiculos_alugados, veiculos_alugados)
-    saveData(DB_Historico, historico)
-
-
-def showHistoric():
-    if historico != []:
-        for i in historico:
-            print(historico[i])
+    data = datetime.strptime(date, "%d/%m/%Y").date()
+    for i in historico:
+        data2 = datetime.strptime(historico[i][3], "%d/%m/%Y").date()
+        if data2 > data:
+            print("-",dados_Veiculos[historico[i][4]][0])
 
 
 def search(term):

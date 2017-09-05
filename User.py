@@ -17,6 +17,7 @@ def pullData():
             read[10] = int(read[10])
             dataUser[read[3]] = read[:]
 
+
 def saveData():
     conteudo = ''
     with open(DB, 'a+') as arquivo:
@@ -28,6 +29,7 @@ def saveData():
             conteudo += '\n'
         arquivo.writelines(conteudo)
 
+
 # Validando
 def cpfExistente(m):
     return bool(m in dataUser)
@@ -36,35 +38,35 @@ def cpfExistente(m):
 def valCpf(cpf):
     while cpfExistente(cpf) is True:
         cpf = input("CPF já utilizado!\nDigite outro:")
-        if len(cpf) != 11:
+    if len(cpf) != 11:
+        return False
+    else:
+        if not re.match("[0-9]", cpf):
             return False
-        else:
-            if not re.match("[0-9]", cpf):
-                return False
-            cpf = list(cpf)
-            for a in range(len(cpf)):
-                cpf[a] = int(cpf[a])
-            mult = [10, 9, 8, 7, 6, 5, 4, 3, 2]
-            mult2 = [11] + mult
-            soma = 0
-            soma2 = 0
-            for a in range(len(mult)):
-                soma += cpf[a] * mult[a]
-            d1 = 11 - (soma % 11)
-            if d1 == 10 or d1 == 11:
-                d1 = 0
-            cpf.append(d1)
-            for a in range(len(mult2)):
-                soma2 += cpf[a] * mult2[a]
-            d2 = 11 - (soma2 % 11)
-            if d2 == 10 or d2 == 11:
-                d2 = 0
-            cpf.append(d2)
-            return bool(d1 == cpf[9] and d2 == cpf[10])
+        cpf = list(cpf)
+        for a in range(len(cpf)):
+            cpf[a] = int(cpf[a])
+        mult = [10, 9, 8, 7, 6, 5, 4, 3, 2]
+        mult2 = [11] + mult
+        soma = 0
+        soma2 = 0
+        for a in range(len(mult)):
+            soma += cpf[a] * mult[a]
+        d1 = 11 - (soma % 11)
+        if d1 == 10 or d1 == 11:
+            d1 = 0
+        cpf.append(d1)
+        for a in range(len(mult2)):
+            soma2 += cpf[a] * mult2[a]
+        d2 = 11 - (soma2 % 11)
+        if d2 == 10 or d2 == 11:
+            d2 = 0
+        cpf.append(d2)
+        return bool(d1 == cpf[9] and d2 == cpf[10])
 
 
 def valOthers(variavel, qtd_letras):
-    return bool(re.match("[0-9]{"+str(qtd_letras)+"}", variavel))
+    return bool(re.match("[0-9]{" + str(qtd_letras) + "}", variavel))
 
 
 def valAddress(m):
@@ -106,6 +108,7 @@ def bestClients():
     for i in melhoresCli:
         print("\t", i[0], " | ", i[1])
 
+
 # Pesquisa
 def search(term):
     if term in dataUser:
@@ -119,15 +122,19 @@ def showUsers():
     for i in dataUser:
         print(j, ' - ', dataUser[i][0], dataUser[i][1])
         j += 1
+
+
 # Ediçao de cadastro
 def checkUserExist(m):
     while bool(m not in dataUser) is True:
         m = input('CPF não existe nos registros!\nDigite outro CPF: ')
 
+
 def deleteUser(m):
     del dataUser[m]
     saveData()
     print("Cadastro excluído com sucesso!")
+
 
 def editCPF(m, n, v):
     dataUser[n] = dataUser[m][:]
@@ -141,7 +148,6 @@ def editUser(m, n, v):
 
 
 def sendEmail(email, cpf, nameCar, price, today, dateReceive, by):
-
     import smtplib
 
     # Informe suas credenciais abaixo.
@@ -176,6 +182,7 @@ def sendEmail(email, cpf, nameCar, price, today, dateReceive, by):
         server.quit()
     except:
         print("Erro ao enviar o email!\nVerifique sua conexão com a internet ou o email do usuário se está correto!")
+
 
 class newUsuario(object):
     def __init__(self, a, b, c, d, e, f, g, h, i, j, l):
